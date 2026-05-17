@@ -1,11 +1,67 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+  <main class="home">
+    <h1>OCTOGONAL</h1>
+
+    <p class="tagline">
+      Geometría sonora en movimiento.
+    </p>
+
+    <nav>
+      <a href="#">Instagram</a>
+      <a href="#">SoundCloud</a>
+      <a href="#">Contacto</a>
+    </nav>
+  </main>
 </Layout>
+
+<style>
+  :global(body) {
+    margin: 0;
+    background: #0a0a0a;
+    color: white;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  }
+
+  .home {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 10vw;
+    gap: 2rem;
+  }
+
+  h1 {
+    font-size: 5rem;
+    letter-spacing: 0.4rem;
+    margin: 0;
+  }
+
+  .tagline {
+    color: #666;
+    font-size: 0.95rem;
+    letter-spacing: 0.25rem;
+    text-transform: uppercase;
+  }
+
+  nav {
+    display: flex;
+    gap: 3rem;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: 0.2s;
+  }
+
+  a:hover {
+    opacity: 1;
+  }
+</style>
