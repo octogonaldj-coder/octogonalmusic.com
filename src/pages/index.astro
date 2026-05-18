@@ -272,16 +272,20 @@ import Layout from '../layouts/Layout.astro';
     .home {
       align-items: center;
       padding: 10vh 7vw 8vh;
+      overflow-x: hidden;
     }
 
     .hero {
       gap: 1.35rem;
+      max-width: 100%;
     }
 
     .style-c {
-      font-size: clamp(3.3rem, 16vw, 5.2rem);
-      line-height: 0.9;
-      letter-spacing: 0.04rem;
+      max-width: 100%;
+      font-size: clamp(2.8rem, 13vw, 4.2rem);
+      line-height: 0.92;
+      letter-spacing: 0.02rem;
+      white-space: nowrap;
     }
 
     .tagline {
