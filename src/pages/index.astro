@@ -3,65 +3,325 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout>
-  <main class="home">
-    <h1>OCTOGONAL</h1>
+  <main>
+    <section class="home" aria-label="OCTOGONAL artist landing">
+      <div class="hero">
+        <h1 class="style-c">OCTOGONAL</h1>
 
-    <p class="tagline">
-      Geometría sonora en movimiento.
-    </p>
+        <p class="tagline">
+          Geometría sonora en movimiento.
+        </p>
 
-    <nav>
-      <a href="#">Instagram</a>
-      <a href="#">SoundCloud</a>
-      <a href="#">Contacto</a>
-    </nav>
+        <nav aria-label="Main links">
+          <a href="#bio">Bio</a>
+          <a href="#fechas">Fechas</a>
+          <a href="#galeria">Galería</a>
+          <a href="#rider">Rider</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+      </div>
+    </section>
+
+    <section id="bio" class="section section-bio" aria-label="Biografía">
+      <p class="section-label">Bio</p>
+      <div class="section-content">
+        <h2>Techno sin etiquetas. Groove constante. Narrativa larga.</h2>
+        <p>
+          OCTOGONAL es el proyecto artístico de Brais Trinidad como DJ, una visión centrada en el Techno entendido como viaje continuo: precisión, tensión, groove y narrativa.
+        </p>
+        <p>
+          Su sonido conecta cultura DJ real, influencia old school, mezcla técnica y una búsqueda de energía constante sin depender de drops exagerados.
+        </p>
+      </div>
+    </section>
+
+    <section id="fechas" class="section" aria-label="Fechas">
+      <p class="section-label">Fechas</p>
+      <div class="section-content">
+        <div class="event-list">
+          <article class="event-item">
+            <span class="event-date">Próximamente</span>
+            <span class="event-name">Nuevas fechas por anunciar</span>
+            <span class="event-place">—</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="galeria" class="section" aria-label="Galería">
+      <p class="section-label">Galería</p>
+      <div class="gallery-grid">
+        <div class="gallery-item"></div>
+        <div class="gallery-item"></div>
+        <div class="gallery-item"></div>
+        <div class="gallery-item"></div>
+      </div>
+    </section>
+
+    <section id="rider" class="section" aria-label="Rider técnico">
+      <p class="section-label">Rider técnico</p>
+      <div class="section-content">
+        <h2>Rider técnico</h2>
+        <ul class="rider-list">
+          <li>DJ booth estable y monitorización adecuada.</li>
+          <li>Setup Pioneer DJ estándar o equivalente.</li>
+          <li>Conexión de audio profesional revisada antes del set.</li>
+          <li>Espacio suficiente para USB, auriculares y equipo personal.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="contacto" class="section section-contact" aria-label="Contacto y enlaces">
+      <p class="section-label">Enlaces</p>
+      <div class="section-content">
+        <h2>Booking / contacto</h2>
+        <div class="link-list">
+          <a href="#">Instagram</a>
+          <a href="#">SoundCloud</a>
+          <a href="mailto:booking@octogonalmusic.com">booking@octogonalmusic.com</a>
+        </div>
+      </div>
+    </section>
   </main>
 </Layout>
 
 <style>
+  :global(*) {
+    box-sizing: border-box;
+  }
+
+  :global(html) {
+    background: #070707;
+  }
+
   :global(body) {
     margin: 0;
-    background: #0a0a0a;
-    color: white;
+    background: #070707;
+    color: #f2f2f2;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   }
 
   .home {
     min-height: 100vh;
     display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 14vh 10vw 8vh;
+    overflow: hidden;
+  }
+
+  .hero {
+    display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: flex-start;
-    padding-left: 10vw;
-    gap: 2rem;
+    gap: 1.65rem;
+    width: 100%;
   }
 
-  h1 {
-    font-size: 5rem;
-    letter-spacing: 0.4rem;
+  .style-c {
     margin: 0;
-  }
-
-  .tagline {
-    color: #666;
-    font-size: 0.95rem;
-    letter-spacing: 0.25rem;
+    color: #f4f4f4;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: clamp(4.4rem, 9.5vw, 7.6rem);
+    font-weight: 500;
+    line-height: 0.88;
+    letter-spacing: 0.12rem;
     text-transform: uppercase;
   }
 
-  nav {
+  .tagline {
+    margin: 0;
+    color: #8a8a8a;
+    font-size: 0.82rem;
+    font-weight: 300;
+    letter-spacing: 0.28rem;
+    text-transform: uppercase;
+  }
+
+  nav,
+  .link-list {
     display: flex;
-    gap: 3rem;
+    flex-wrap: wrap;
+    gap: 1rem 2.6rem;
+    margin-top: 1.15rem;
   }
 
-  a {
-    color: white;
+  nav a,
+  .link-list a {
+    position: relative;
+    color: #f2f2f2;
     text-decoration: none;
-    opacity: 0.8;
-    transition: 0.2s;
+    font-size: 0.76rem;
+    letter-spacing: 0.16rem;
+    text-transform: uppercase;
+    opacity: 0.72;
+    transition: opacity 0.2s ease;
   }
 
-  a:hover {
+  nav a::after,
+  .link-list a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.45rem;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    opacity: 0.65;
+    transition: transform 0.25s ease;
+  }
+
+  nav a:hover,
+  .link-list a:hover {
     opacity: 1;
+  }
+
+  nav a:hover::after,
+  .link-list a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .section {
+    min-height: 70vh;
+    padding: 12vh 10vw;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: grid;
+    grid-template-columns: 12rem minmax(0, 1fr);
+    gap: 6vw;
+  }
+
+  .section-label {
+    margin: 0;
+    color: #666;
+    font-size: 0.72rem;
+    letter-spacing: 0.18rem;
+    text-transform: uppercase;
+  }
+
+  .section-content {
+    max-width: 760px;
+  }
+
+  .section h2 {
+    margin: 0 0 2rem;
+    color: #f2f2f2;
+    font-size: clamp(2rem, 4vw, 4rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.04rem;
+  }
+
+  .section p {
+    margin: 0 0 1.2rem;
+    color: #aaa;
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  .event-list,
+  .rider-list {
+    margin: 0;
+    padding: 0;
+  }
+
+  .event-item {
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 1fr) 10rem;
+    gap: 2rem;
+    padding: 1.4rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #d7d7d7;
+  }
+
+  .event-date,
+  .event-place {
+    color: #777;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .gallery-item {
+    aspect-ratio: 3 / 4;
+    background: linear-gradient(145deg, #111, #070707);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .rider-list {
+    list-style: none;
+    color: #aaa;
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  .rider-list li {
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  @media (max-width: 700px) {
+    .home {
+      align-items: center;
+      padding: 10vh 7vw 8vh;
+    }
+
+    .hero {
+      gap: 1.35rem;
+    }
+
+    .style-c {
+      font-size: clamp(3.3rem, 16vw, 5.2rem);
+      line-height: 0.9;
+      letter-spacing: 0.04rem;
+    }
+
+    .tagline {
+      max-width: 18rem;
+      font-size: 0.68rem;
+      line-height: 1.7;
+      letter-spacing: 0.14rem;
+    }
+
+    nav,
+    .link-list {
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    nav a,
+    .link-list a {
+      font-size: 0.7rem;
+      letter-spacing: 0.14rem;
+    }
+
+    .section {
+      min-height: auto;
+      padding: 9vh 7vw;
+      grid-template-columns: 1fr;
+      gap: 2.4rem;
+    }
+
+    .section h2 {
+      margin-bottom: 1.6rem;
+    }
+
+    .event-item {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+
+    .gallery-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 </style>
