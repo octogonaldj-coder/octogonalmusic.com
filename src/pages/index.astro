@@ -4,328 +4,652 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout>
   <main>
-    <section class="home" aria-label="OCTOGONAL artist landing">
-      <div class="hero">
-        <h1 class="style-c">OCTOGONAL</h1>
 
-        <p class="tagline">
-          Geometría sonora en movimiento.
-        </p>
+    <!-- ═══ HERO ═══ -->
+    <section class="hero" id="top">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-center">
 
-        <nav aria-label="Main links">
-          <a href="#bio">Bio</a>
-          <a href="#fechas">Fechas</a>
-          <a href="#galeria">Galería</a>
-          <a href="#rider">Rider</a>
-          <a href="#contacto">Contacto</a>
-        </nav>
-      </div>
-    </section>
+        <h1 class="name" id="heroName">OCTOGONAL</h1>
+        <p class="tagline">Geometría sonora en movimiento</p>
 
-    <section id="bio" class="section section-bio" aria-label="Biografía">
-      <p class="section-label">Bio</p>
-      <div class="section-content">
-        <h2>Techno sin etiquetas. Groove constante. Narrativa larga.</h2>
-        <p>
-          OCTOGONAL es el proyecto artístico de Brais Trinidad como DJ, una visión centrada en el Techno entendido como viaje continuo: precisión, tensión, groove y narrativa.
-        </p>
-        <p>
-          Su sonido conecta cultura DJ real, influencia old school, mezcla técnica y una búsqueda de energía constante sin depender de drops exagerados.
-        </p>
-      </div>
-    </section>
+        <div class="icon-row">
 
-    <section id="fechas" class="section" aria-label="Fechas">
-      <p class="section-label">Fechas</p>
-      <div class="section-content">
-        <div class="event-list">
-          <article class="event-item">
-            <span class="event-date">Próximamente</span>
-            <span class="event-name">Nuevas fechas por anunciar</span>
-            <span class="event-place">—</span>
-          </article>
+          <a href="https://soundcloud.com/octogonal-909101707"
+             target="_blank" rel="noopener" class="icon-btn" aria-label="SoundCloud">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" width="20" height="20">
+              <path d="M4 18V12"/><path d="M8 18V8"/><path d="M12 18V6"/>
+              <path d="M16 18V10"/><path d="M20 18V14"/>
+            </svg>
+          </a>
+
+          <a href="https://www.instagram.com/octogonal__/"
+             target="_blank" rel="noopener" class="icon-btn" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+
+          <a href="https://www.youtube.com/@Octogonal_dj"
+             target="_blank" rel="noopener" class="icon-btn" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+              <path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>
+            </svg>
+          </a>
+
+          <a href="https://www.tiktok.com/@octogonal__"
+             target="_blank" rel="noopener" class="icon-btn" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.06a8.27 8.27 0 004.83 1.54V7.15a4.85 4.85 0 01-1.06-.46z"/>
+            </svg>
+          </a>
+
+          <button class="icon-btn mail-btn" id="mailBtn" aria-label="Copiar email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="M2 7l10 7 10-7"/>
+            </svg>
+            <span class="tooltip" id="copiedLabel">Copiado</span>
+          </button>
+
         </div>
+
+        <button class="icon-btn cal-btn" id="calBtn" aria-label="Ver fechas">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <path d="M16 2v4M8 2v4M3 10h18"/>
+          </svg>
+        </button>
+
       </div>
     </section>
 
-    <section id="galeria" class="section" aria-label="Galería">
-      <p class="section-label">Galería</p>
-      <div class="gallery-grid">
-        <div class="gallery-item"></div>
-        <div class="gallery-item"></div>
-        <div class="gallery-item"></div>
-        <div class="gallery-item"></div>
-      </div>
-    </section>
 
-    <section id="rider" class="section" aria-label="Rider técnico">
-      <p class="section-label">Rider técnico</p>
-      <div class="section-content">
-        <h2>Rider técnico</h2>
-        <ul class="rider-list">
-          <li>DJ booth estable y monitorización adecuada.</li>
-          <li>Setup Pioneer DJ estándar o equivalente.</li>
-          <li>Conexión de audio profesional revisada antes del set.</li>
-          <li>Espacio suficiente para USB, auriculares y equipo personal.</li>
-        </ul>
-      </div>
-    </section>
+    <!-- ═══ PANEL DE FECHAS ═══ -->
+    <div class="dates-panel hidden" id="datesPanel">
+      <ul class="dates-list" id="datesList"></ul>
+      <button class="dates-close-btn" id="datesCloseBtn" aria-label="Cerrar fechas">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+          <path d="M3 12L12 4l9 8"/>
+          <path d="M5 10v10h4v-6h6v6h4V10"/>
+        </svg>
+      </button>
+    </div>
 
-    <section id="contacto" class="section section-contact" aria-label="Contacto y enlaces">
-      <p class="section-label">Enlaces</p>
-      <div class="section-content">
-        <h2>Booking / contacto</h2>
-        <div class="link-list">
-          <a href="#">Instagram</a>
-          <a href="#">SoundCloud</a>
-          <a href="mailto:booking@octogonalmusic.com">booking@octogonalmusic.com</a>
+
+    <!-- ═══ BIOGRAFÍA ═══ -->
+    <section class="bio-section" id="bio">
+      <div class="bio-bg"></div>
+      <div class="bio-overlay"></div>
+      <div class="bio-inner">
+        <p class="s-label">Biografía</p>
+        <div class="bio-body">
+          <p>
+            <strong>OCTOGONAL</strong> es la nueva identidad de un DJ gallego nacido en 1998 que, tras un cambio de aires
+            en su trayectoria, inicia una etapa centrada plenamente en su visión personal del Techno. Su nombre,
+            inspirado en una figura arquitectónica vinculada a sus raíces, refleja precisión, estructura y equilibrio;
+            conceptos que también definen su forma de entender la música.
+          </p>
+          <p>
+            Su sonido se define como un Techno sin etiquetas, de carácter nítido y ritmo preciso. Una propuesta
+            contundente pero medida, guiada por la claridad y por un criterio que define su identidad. OCTOGONAL
+            desarrolla viajes lineales y naturales, sostenidos por una intensidad constante y un groove que avanza
+            sin interrupciones. Su sonido bebe de la escuela ibérica, caracterizada por energía clara, precisión
+            rítmica y un toque bailable que convive con momentos emocionales que surgen de forma orgánica.
+          </p>
+          <p>
+            En cabina, OCTOGONAL deja que la música trace el camino. Su forma de mezclar da espacio a cada track,
+            creando un flujo continuo donde el groove es el protagonista. Su enfoque se basa en una narrativa lineal
+            y honesta, reflejo de la identidad que construye en esta nueva etapa, aspirando a desarrollar una
+            propuesta cada vez más personal y reconocible dentro del Techno.
+          </p>
         </div>
+        <a href="#top" class="home-btn" aria-label="Volver al inicio">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+            <path d="M3 12L12 4l9 8"/>
+            <path d="M5 10v10h4v-6h6v6h4V10"/>
+          </svg>
+        </a>
       </div>
     </section>
+
+
+    <!-- ═══ GALERÍA ═══ -->
+    <section class="gallery-section" id="galeria">
+      <div class="gallery-inner">
+        <p class="s-label">Galería</p>
+        <div class="gallery-grid">
+
+          <div class="g-item">
+            <img src="/gallery-1.jpg" alt="OCTOGONAL" class="g-img"
+                 onerror="this.style.display='none'" />
+          </div>
+
+          <div class="g-item">
+            <img src="/gallery-2.jpg" alt="OCTOGONAL" class="g-img"
+                 onerror="this.style.display='none'" />
+          </div>
+
+          <div class="g-item">
+            <img src="/gallery-3.jpg" alt="OCTOGONAL" class="g-img"
+                 onerror="this.style.display='none'" />
+          </div>
+
+          <div class="g-item">
+            <img src="/gallery-4.jpg" alt="OCTOGONAL" class="g-img"
+                 onerror="this.style.display='none'" />
+          </div>
+
+          <!-- Vídeo 1 — pon tu archivo en public/video-1.mp4 -->
+          <div class="g-item g-video-wrap">
+            <video id="vid1" preload="metadata" playsinline>
+              <source src="/video-1.mp4" type="video/mp4" />
+            </video>
+            <button class="play-btn" id="playBtn1" aria-label="Reproducir">
+              <svg viewBox="0 0 24 24" fill="white" width="52" height="52">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Vídeo 2 — pon tu archivo en public/video-2.mp4 -->
+          <div class="g-item g-video-wrap">
+            <video id="vid2" preload="metadata" playsinline>
+              <source src="/video-2.mp4" type="video/mp4" />
+            </video>
+            <button class="play-btn" id="playBtn2" aria-label="Reproducir">
+              <svg viewBox="0 0 24 24" fill="white" width="52" height="52">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </button>
+          </div>
+
+        </div>
+
+        <a href="#top" class="home-btn" style="margin-top:3rem" aria-label="Volver al inicio">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+            <path d="M3 12L12 4l9 8"/>
+            <path d="M5 10v10h4v-6h6v6h4V10"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
   </main>
 </Layout>
 
+
+<style is:global>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: #0a0a0a; scroll-behavior: smooth; }
+  body {
+    background: #0a0a0a;
+    color: #f0f0f0;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── Fechas: global para que apliquen a <li> creados con JS ── */
+  .dates-list {
+    list-style: none;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-size: clamp(0.7rem, 1.6vw, 0.88rem);
+    letter-spacing: 0.07em;
+    line-height: 2.6;
+    padding: 1rem 2rem;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+
+  /* cada <li> empieza invisible; JS lo muestra al escribirlo */
+  .dates-list li {
+    opacity: 0;
+    min-height: 1.6em;
+  }
+
+  .dates-list .past { color: #c084fc; }
+  .dates-list .soon { color: #444; font-style: italic; }
+</style>
+
+
 <style>
-  :global(*) {
-    box-sizing: border-box;
-  }
-
-  :global(html) {
-    background: #070707;
-  }
-
-  :global(body) {
-    margin: 0;
-    background: #070707;
-    color: #f2f2f2;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  }
-
-  .home {
-    min-height: 100vh;
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 100svh;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    padding: 14vh 10vw 8vh;
+    justify-content: center;
     overflow: hidden;
   }
 
-  .hero {
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('/hero.JPG') center 20% / cover no-repeat;
+    filter: brightness(0.42);
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
+  }
+
+  .hero-center {
+    position: relative;
+    z-index: 10;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 1.65rem;
+    align-items: center;
+    gap: 1.8rem;
+    text-align: center;
+    padding: 1.5rem;
     width: 100%;
   }
 
-  .style-c {
-    margin: 0;
-    color: #f4f4f4;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-    font-size: clamp(4.4rem, 9.5vw, 7.6rem);
-    font-weight: 500;
-    line-height: 0.88;
-    letter-spacing: 0.12rem;
-    text-transform: uppercase;
+  .name {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: clamp(3rem, 10vw, 10rem);
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    color: #ffffff;
+    cursor: default;
+    user-select: none;
+    white-space: nowrap;
+    width: 100%;
+    text-align: center;
   }
 
   .tagline {
-    margin: 0;
-    color: #8a8a8a;
-    font-size: 0.82rem;
+    color: #686868;
+    font-size: clamp(0.6rem, 1.1vw, 0.78rem);
     font-weight: 300;
-    letter-spacing: 0.28rem;
+    letter-spacing: 0.3rem;
     text-transform: uppercase;
+    margin-top: -0.8rem;
   }
 
-  nav,
-  .link-list {
+  .icon-row {
     display: flex;
+    gap: 0.85rem;
+    align-items: center;
     flex-wrap: wrap;
-    gap: 1rem 2.6rem;
-    margin-top: 1.15rem;
+    justify-content: center;
   }
 
-  nav a,
-  .link-list a {
-    position: relative;
-    color: #f2f2f2;
+  .icon-btn {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.92);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
-    font-size: 0.76rem;
-    letter-spacing: 0.16rem;
-    text-transform: uppercase;
-    opacity: 0.72;
-    transition: opacity 0.2s ease;
+    color: #0a0a0a;
+    position: relative;
+    transition: transform 0.18s ease, background 0.18s ease;
+    flex-shrink: 0;
   }
 
-  nav a::after,
-  .link-list a::after {
-    content: '';
+  .icon-btn:hover { transform: scale(1.12); background: #ffffff; }
+
+  .cal-btn {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #ffffff;
+    margin-top: 0.2rem;
+  }
+
+  .cal-btn:hover { background: rgba(255,255,255,0.22); color: #ffffff; transform: scale(1.08); }
+
+  .tooltip {
     position: absolute;
-    left: 0;
-    bottom: -0.45rem;
-    width: 100%;
-    height: 1px;
-    background: currentColor;
-    transform: scaleX(0);
-    transform-origin: right;
-    opacity: 0.65;
-    transition: transform 0.25s ease;
-  }
-
-  nav a:hover,
-  .link-list a:hover {
-    opacity: 1;
-  }
-
-  nav a:hover::after,
-  .link-list a:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-
-  .section {
-    min-height: 70vh;
-    padding: 12vh 10vw;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    display: grid;
-    grid-template-columns: 12rem minmax(0, 1fr);
-    gap: 6vw;
-  }
-
-  .section-label {
-    margin: 0;
-    color: #666;
-    font-size: 0.72rem;
-    letter-spacing: 0.18rem;
+    bottom: calc(100% + 0.55rem);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #111;
+    color: #fff;
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border-radius: 0.2rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
   }
 
-  .section-content {
-    max-width: 760px;
+  .tooltip.visible { opacity: 1; }
+
+
+  /* ── PANEL FECHAS ── */
+  .dates-panel {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: #050505;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
   }
 
-  .section h2 {
-    margin: 0 0 2rem;
-    color: #f2f2f2;
-    font-size: clamp(2rem, 4vw, 4rem);
-    font-weight: 400;
-    line-height: 1.05;
-    letter-spacing: -0.04rem;
+  .dates-panel.hidden { display: none; }
+
+  .dates-close-btn {
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
   }
 
-  .section p {
-    margin: 0 0 1.2rem;
-    color: #aaa;
-    font-size: clamp(1rem, 1.4vw, 1.15rem);
+  .dates-close-btn:hover { background: rgba(255,255,255,0.18); }
+
+
+  /* ── SECCIONES ── */
+  .s-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    letter-spacing: 0.14em;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: #fff;
+  }
+
+  .home-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: #fff;
+    text-decoration: none;
+    margin: 3rem auto 0;
+    transition: background 0.2s;
+  }
+
+  .home-btn:hover { background: rgba(255,255,255,0.18); }
+
+
+  /* ── BIOGRAFÍA ── */
+  .bio-section {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12vh 10vw;
+  }
+
+  .bio-bg {
+    position: absolute;
+    inset: 0;
+    background: url('/hero.JPG') center 20% / cover no-repeat;
+    background-attachment: fixed;
+    filter: brightness(0.12) blur(4px);
+  }
+
+  .bio-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.68); }
+
+  .bio-inner { position: relative; z-index: 10; max-width: 680px; width: 100%; }
+
+  .bio-body p {
+    color: #b8b8b8;
+    font-size: clamp(0.88rem, 1.25vw, 1.05rem);
     font-weight: 300;
-    line-height: 1.75;
+    line-height: 1.95;
+    margin-bottom: 1.6rem;
   }
 
-  .event-list,
-  .rider-list {
-    margin: 0;
-    padding: 0;
+  .bio-body p strong { color: #fff; font-weight: 600; }
+
+
+  /* ── GALERÍA ── */
+  .gallery-section {
+    background: #080808;
+    padding: 10vh 5vw 8vh;
+    border-top: 1px solid rgba(255,255,255,0.06);
   }
 
-  .event-item {
-    display: grid;
-    grid-template-columns: 11rem minmax(0, 1fr) 10rem;
-    gap: 2rem;
-    padding: 1.4rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    color: #d7d7d7;
-  }
+  .gallery-inner { max-width: 1000px; margin: 0 auto; }
 
-  .event-date,
-  .event-place {
-    color: #777;
-  }
-
+  /* Grid de 2 columnas, altura libre según contenido */
   .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    align-items: start;
+  }
+
+  .g-item { overflow: hidden; background: #111; }
+
+  /* Imágenes: ancho 100%, alto natural sin recorte */
+  .g-img {
     width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.4s ease;
   }
 
-  .gallery-item {
-    aspect-ratio: 3 / 4;
-    background: linear-gradient(145deg, #111, #070707);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+  .g-img:hover { transform: scale(1.02); }
+
+  /* Vídeos: tamaño natural */
+  .g-video-wrap {
+    position: relative;
+    background: #111;
+    overflow: hidden;
   }
 
-  .rider-list {
-    list-style: none;
-    color: #aaa;
-    font-size: clamp(1rem, 1.4vw, 1.15rem);
-    font-weight: 300;
-    line-height: 1.75;
+  .g-video-wrap video {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 
-  .rider-list li {
-    padding: 0.9rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  /* Botón de play */
+  .play-btn {
+    position: absolute;
+    inset: 0;
+    border: none;
+    background: rgba(0,0,0,0.2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
   }
 
-  @media (max-width: 700px) {
-    .home {
-      align-items: center;
-      padding: 10vh 7vw 8vh;
-      overflow-x: hidden;
-    }
+  .play-btn:hover { background: rgba(0,0,0,0.1); }
 
-    .hero {
-      gap: 1.35rem;
-      max-width: 100%;
-    }
+  .play-btn svg {
+    filter: drop-shadow(0 2px 10px rgba(0,0,0,0.9));
+    transition: transform 0.18s;
+  }
 
-    .style-c {
-      max-width: 100%;
-      font-size: clamp(2.8rem, 13vw, 4.2rem);
-      line-height: 0.92;
-      letter-spacing: 0.02rem;
-      white-space: nowrap;
-    }
+  .play-btn:hover svg { transform: scale(1.1); }
 
-    .tagline {
-      max-width: 18rem;
-      font-size: 0.68rem;
-      line-height: 1.7;
-      letter-spacing: 0.14rem;
-    }
+  /* Cuando reproduce: icono desaparece, reaparece al hover */
+  .play-btn.playing { background: transparent; }
+  .play-btn.playing svg { opacity: 0; }
+  .play-btn.playing:hover { background: rgba(0,0,0,0.15); }
+  .play-btn.playing:hover svg { opacity: 0.7; }
 
-    nav,
-    .link-list {
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
 
-    nav a,
-    .link-list a {
-      font-size: 0.7rem;
-      letter-spacing: 0.14rem;
-    }
-
-    .section {
-      min-height: auto;
-      padding: 9vh 7vw;
-      grid-template-columns: 1fr;
-      gap: 2.4rem;
-    }
-
-    .section h2 {
-      margin-bottom: 1.6rem;
-    }
-
-    .event-item {
-      grid-template-columns: 1fr;
-      gap: 0.5rem;
-    }
-
-    .gallery-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .name { font-size: clamp(2.5rem, 13vw, 4.5rem); letter-spacing: 0.02em; }
+    .tagline { font-size: 0.58rem; letter-spacing: 0.2rem; }
+    .icon-btn { width: 2.6rem; height: 2.6rem; }
+    .icon-row { gap: 0.55rem; }
+    .bio-section { padding: 10vh 7vw; }
+    .bio-bg { background-attachment: scroll; }
+    .gallery-section { padding: 8vh 4vw; }
+    .gallery-grid { gap: 0.5rem; }
   }
 </style>
+
+
+<script>
+  // ── SCRAMBLE ──────────────────────────────
+  const nameEl = document.getElementById('heroName') as HTMLElement;
+  const TARGET = 'OCTOGONAL';
+  const CHARS  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#%&*';
+
+  function scramble() {
+    let iteration = 0;
+    const interval = setInterval(() => {
+      nameEl.textContent = TARGET.split('').map((_c, i) => {
+        if (i < Math.floor(iteration)) return TARGET[i];
+        return CHARS[Math.floor(Math.random() * CHARS.length)];
+      }).join('');
+      iteration += 0.4;
+      if (iteration > TARGET.length) {
+        clearInterval(interval);
+        nameEl.textContent = TARGET;
+      }
+    }, 35);
+  }
+
+  scramble();
+  setInterval(scramble, 15000);
+
+
+  // ── COPIAR EMAIL ──────────────────────────
+  const mailBtn     = document.getElementById('mailBtn') as HTMLButtonElement;
+  const copiedLabel = document.getElementById('copiedLabel') as HTMLElement;
+
+  mailBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText('octogonaldj@gmail.com').then(() => {
+      copiedLabel.classList.add('visible');
+      setTimeout(() => copiedLabel.classList.remove('visible'), 2200);
+    });
+  });
+
+
+  // ── PANEL DE FECHAS ───────────────────────
+  const calBtn        = document.getElementById('calBtn') as HTMLButtonElement;
+  const datesPanel    = document.getElementById('datesPanel') as HTMLElement;
+  const datesList     = document.getElementById('datesList') as HTMLUListElement;
+  const datesCloseBtn = document.getElementById('datesCloseBtn') as HTMLButtonElement;
+
+  const DATES = [
+    { text: '19/12/2025  —  PopLasserFM',                              cls: 'past' },
+    { text: '14/02/2026  —  Delicatessen · Fiesta Red Lights  (León)', cls: 'past' },
+    { text: '18/04/2026  —  Sala Arena  (Valencia de Don Juan, León)', cls: 'past' },
+    { text: '25/04/2026  —  Fiesta Privada  (Rueda, Valladolid)',      cls: 'past' },
+    { text: '25/04/2026  —  Pub Zaguán  (Mayorga, Valladolid)',        cls: 'past' },
+    { text: 'Próximamente — nuevas fechas por anunciar',               cls: 'soon' },
+  ];
+
+  // Escribe un texto carácter a carácter en un <li>
+  function typeLine(li: HTMLLIElement, text: string, delay: number): number {
+    const duration = text.length * 22; // ms totales para esta línea
+    setTimeout(() => {
+      li.style.opacity = '1';
+      let i = 0;
+      const iv = setInterval(() => {
+        li.textContent = text.slice(0, i + 1);
+        i++;
+        if (i >= text.length) clearInterval(iv);
+      }, 22);
+    }, delay);
+    return duration;
+  }
+
+  function openDates() {
+    datesPanel.classList.remove('hidden');
+    datesList.innerHTML = '';
+
+    // Crea todos los <li> invisibles de una vez
+    const items = DATES.map(d => {
+      const li = document.createElement('li');
+      li.className = d.cls;
+      li.style.opacity = '0';
+      datesList.appendChild(li);
+      return { li, text: d.text };
+    });
+
+    // Los escribe uno a uno, cada uno empieza cuando termina el anterior
+    let cumulativeDelay = 200;
+    items.forEach(({ li, text }) => {
+      typeLine(li, text, cumulativeDelay);
+      cumulativeDelay += text.length * 22 + 80; // +80ms pausa entre líneas
+    });
+  }
+
+  function closeDates() {
+    datesPanel.classList.add('hidden');
+    datesList.innerHTML = '';
+  }
+
+  calBtn.addEventListener('click', openDates);
+  datesCloseBtn.addEventListener('click', closeDates);
+  document.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Escape') closeDates();
+  });
+
+
+  // ── VÍDEOS ───────────────────────────────
+  const allVideos   = Array.from(document.querySelectorAll<HTMLVideoElement>('.g-video-wrap video'));
+  const allPlayBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('.play-btn'));
+
+  function pauseOthers(currentVideo: HTMLVideoElement) {
+    allVideos.forEach(v => {
+      if (v !== currentVideo) { v.pause(); v.currentTime = 0; }
+    });
+    allPlayBtns.forEach(b => {
+      const vid = b.closest('.g-video-wrap')?.querySelector('video');
+      if (vid !== currentVideo) b.classList.remove('playing');
+    });
+  }
+
+  function setupVideo(videoId: string, btnId: string) {
+    const video = document.getElementById(videoId) as HTMLVideoElement;
+    const btn   = document.getElementById(btnId)   as HTMLButtonElement;
+    if (!video || !btn) return;
+
+    btn.addEventListener('click', () => {
+      if (video.paused) {
+        pauseOthers(video);
+        video.play();
+        btn.classList.add('playing');
+      } else {
+        video.pause();
+        btn.classList.remove('playing');
+      }
+    });
+
+    video.addEventListener('ended', () => {
+      btn.classList.remove('playing');
+      video.currentTime = 0;
+    });
+  }
+
+  setupVideo('vid1', 'playBtn1');
+  setupVideo('vid2', 'playBtn2');
+</script>
