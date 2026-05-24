@@ -471,7 +471,7 @@ import Layout from '../layouts/Layout.astro';
     display: block;
   }
 
-  /* Botón de play */
+  /* Botón de play - estilos base en scoped */
   .play-btn {
     position: absolute;
     inset: 0;
@@ -481,23 +481,19 @@ import Layout from '../layouts/Layout.astro';
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s;
+    transition: background 0.25s, opacity 0.25s;
+    z-index: 10;
   }
 
   .play-btn:hover { background: rgba(0,0,0,0.1); }
 
   .play-btn svg {
     filter: drop-shadow(0 2px 10px rgba(0,0,0,0.9));
-    transition: transform 0.18s;
+    transition: transform 0.18s, opacity 0.25s;
+    pointer-events: none;
   }
 
   .play-btn:hover svg { transform: scale(1.1); }
-
-  /* Cuando reproduce: icono desaparece, reaparece al hover */
-  .play-btn.playing { background: transparent; }
-  .play-btn.playing svg { opacity: 0; }
-  .play-btn.playing:hover { background: rgba(0,0,0,0.15); }
-  .play-btn.playing:hover svg { opacity: 0.7; }
 
 
   /* ── RESPONSIVE ── */
@@ -633,6 +629,18 @@ import Layout from '../layouts/Layout.astro';
     const btn   = document.getElementById(btnId)   as HTMLButtonElement;
     if (!video || !btn) return;
 
+    // Muestra el primer fotograma como miniatura al cargar los metadatos
+    video.addEventListener('loadedmetadata', () => {
+      video.currentTime = 0.1;
+    });
+
+    // Cuando busca al frame 0.1, congela ahí para mostrar la miniatura
+    video.addEventListener('seeked', () => {
+      if (video.paused) {
+        // No hacer nada más — el frame queda visible como poster
+      }
+    });
+
     btn.addEventListener('click', () => {
       if (video.paused) {
         pauseOthers(video);
@@ -646,7 +654,7 @@ import Layout from '../layouts/Layout.astro';
 
     video.addEventListener('ended', () => {
       btn.classList.remove('playing');
-      video.currentTime = 0;
+      video.currentTime = 0.1;
     });
   }
 
