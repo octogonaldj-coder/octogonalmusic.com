@@ -5,10 +5,14 @@ import Layout from '../layouts/Layout.astro';
 <Layout>
   <main>
 
+    <!-- Fondo único fijo para toda la página -->
+    <div class="page-bg" id="pageBg"></div>
+
+    <!-- Overlay único que cubre toda la página — sin cortes -->
+    <div class="dark-overlay" id="darkOverlay"></div>
+
     <!-- ═══ HERO ═══ -->
     <section class="hero" id="top">
-      <div class="hero-bg"></div>
-      <div class="hero-overlay"></div>
       <div class="hero-center">
 
         <h1 class="name" id="heroName">OCTOGONAL</h1>
@@ -82,8 +86,6 @@ import Layout from '../layouts/Layout.astro';
 
     <!-- ═══ BIOGRAFÍA ═══ -->
     <section class="bio-section" id="bio">
-      <div class="bio-bg"></div>
-      <div class="bio-overlay"></div>
       <div class="bio-inner">
         <p class="s-label">Biografía</p>
         <div class="bio-body">
@@ -107,12 +109,6 @@ import Layout from '../layouts/Layout.astro';
             propuesta cada vez más personal y reconocible dentro del Techno.
           </p>
         </div>
-        <a href="#top" class="home-btn" aria-label="Volver al inicio">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
-            <path d="M3 12L12 4l9 8"/>
-            <path d="M5 10v10h4v-6h6v6h4V10"/>
-          </svg>
-        </a>
       </div>
     </section>
 
@@ -143,7 +139,6 @@ import Layout from '../layouts/Layout.astro';
                  onerror="this.style.display='none'" />
           </div>
 
-          <!-- Vídeo 1 — pon tu archivo en public/video-1.mp4 -->
           <div class="g-item g-video-wrap">
             <video id="vid1" preload="metadata" playsinline>
               <source src="/video-1.mp4" type="video/mp4" />
@@ -155,7 +150,6 @@ import Layout from '../layouts/Layout.astro';
             </button>
           </div>
 
-          <!-- Vídeo 2 — pon tu archivo en public/video-2.mp4 -->
           <div class="g-item g-video-wrap">
             <video id="vid2" preload="metadata" playsinline>
               <source src="/video-2.mp4" type="video/mp4" />
@@ -169,12 +163,6 @@ import Layout from '../layouts/Layout.astro';
 
         </div>
 
-        <a href="#top" class="home-btn" style="margin-top:3rem" aria-label="Volver al inicio">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
-            <path d="M3 12L12 4l9 8"/>
-            <path d="M5 10v10h4v-6h6v6h4V10"/>
-          </svg>
-        </a>
       </div>
     </section>
 
@@ -195,7 +183,6 @@ import Layout from '../layouts/Layout.astro';
     overflow-x: hidden;
   }
 
-  /* ── Fechas: global para que apliquen a <li> creados con JS ── */
   .dates-list {
     list-style: none;
     text-align: center;
@@ -208,18 +195,36 @@ import Layout from '../layouts/Layout.astro';
     overflow-y: auto;
   }
 
-  /* cada <li> empieza invisible; JS lo muestra al escribirlo */
-  .dates-list li {
-    opacity: 0;
-    min-height: 1.6em;
-  }
-
+  .dates-list li { opacity: 0; min-height: 1.6em; }
   .dates-list .past { color: #c084fc; }
   .dates-list .soon { color: #444; font-style: italic; }
+
+  /* Estado playing — oculto siempre; reaparece solo en hover del contenedor */
+  .play-btn.playing { opacity: 0 !important; }
 </style>
 
 
 <style>
+
+  /* ── FONDO ÚNICO FIJO ── */
+  /* Una sola imagen para todo el scroll, sin cortes */
+  .page-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: url('/hero.JPG') center 20% / cover no-repeat;
+    filter: brightness(0.42);
+    transform-origin: center center;
+    will-change: transform;
+  }
+
+  /* Asegura que secciones estén por delante del fondo fijo */
+  .hero, .bio-section, .gallery-section {
+    position: relative;
+    z-index: 1;
+  }
+
+
   /* ── HERO ── */
   .hero {
     position: relative;
@@ -228,20 +233,7 @@ import Layout from '../layouts/Layout.astro';
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background: url('/hero.JPG') center 20% / cover no-repeat;
-    filter: brightness(0.42);
-  }
-
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
+    z-index: 2;
   }
 
   .hero-center {
@@ -271,7 +263,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .tagline {
-    color: #686868;
+    color: #aaaaaa;
     font-size: clamp(0.6rem, 1.1vw, 0.78rem);
     font-weight: 300;
     letter-spacing: 0.3rem;
@@ -396,6 +388,16 @@ import Layout from '../layouts/Layout.astro';
   .home-btn:hover { background: rgba(255,255,255,0.18); }
 
 
+  /* ── OVERLAY OSCURO — controlado por JS ── */
+  .dark-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    background: #000;
+    opacity: 0;
+    pointer-events: none;
+  }
+
   /* ── BIOGRAFÍA ── */
   .bio-section {
     position: relative;
@@ -404,22 +406,29 @@ import Layout from '../layouts/Layout.astro';
     align-items: center;
     justify-content: center;
     padding: 12vh 10vw;
+    margin-bottom: -4px;
   }
 
-  .bio-bg {
+  /* Overlay bio: termina exactamente igual que empieza la galería */
+  .bio-overlay {
     position: absolute;
     inset: 0;
-    background: url('/hero.JPG') center 20% / cover no-repeat;
-    background-attachment: fixed;
-    filter: brightness(0.12) blur(4px);
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.72) 0%,
+      rgba(0,0,0,0.86) 100%
+    );
   }
 
-  .bio-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.68); }
-
-  .bio-inner { position: relative; z-index: 10; max-width: 680px; width: 100%; }
+  .bio-inner {
+    position: relative;
+    z-index: 10;
+    max-width: 680px;
+    width: 100%;
+  }
 
   .bio-body p {
-    color: #b8b8b8;
+    color: #f5f5f5;
     font-size: clamp(0.88rem, 1.25vw, 1.05rem);
     font-weight: 300;
     line-height: 1.95;
@@ -431,14 +440,19 @@ import Layout from '../layouts/Layout.astro';
 
   /* ── GALERÍA ── */
   .gallery-section {
-    background: #080808;
+    position: relative;
+    background: transparent;
     padding: 10vh 5vw 8vh;
-    border-top: 1px solid rgba(255,255,255,0.06);
+    z-index: 2;
   }
 
-  .gallery-inner { max-width: 1000px; margin: 0 auto; }
+  .gallery-inner {
+    position: relative;
+    z-index: 3;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
 
-  /* Grid de 2 columnas, altura libre según contenido */
   .gallery-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -448,7 +462,6 @@ import Layout from '../layouts/Layout.astro';
 
   .g-item { overflow: hidden; background: #111; }
 
-  /* Imágenes: ancho 100%, alto natural sin recorte */
   .g-img {
     width: 100%;
     height: auto;
@@ -458,7 +471,6 @@ import Layout from '../layouts/Layout.astro';
 
   .g-img:hover { transform: scale(1.02); }
 
-  /* Vídeos: tamaño natural */
   .g-video-wrap {
     position: relative;
     background: #111;
@@ -471,29 +483,49 @@ import Layout from '../layouts/Layout.astro';
     display: block;
   }
 
-  /* Botón de play - estilos base en scoped */
   .play-btn {
     position: absolute;
     inset: 0;
     border: none;
-    background: rgba(0,0,0,0.2);
+    background: transparent;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.25s, opacity 0.25s;
+    transition: opacity 0.25s, background 0.25s;
     z-index: 10;
+    opacity: 0; /* oculto por defecto en escritorio */
   }
 
-  .play-btn:hover { background: rgba(0,0,0,0.1); }
+  /* En escritorio: aparece al pasar el ratón por encima del vídeo */
+  .g-video-wrap:hover .play-btn {
+    opacity: 1;
+    background: rgba(0,0,0,0.2);
+  }
+
+  /* Si está reproduciendo y pasas el ratón: aparece para pausar */
+  .g-video-wrap:hover .play-btn.playing {
+    opacity: 0.8;
+  }
 
   .play-btn svg {
     filter: drop-shadow(0 2px 10px rgba(0,0,0,0.9));
-    transition: transform 0.18s, opacity 0.25s;
+    transition: transform 0.18s;
     pointer-events: none;
   }
 
-  .play-btn:hover svg { transform: scale(1.1); }
+  .g-video-wrap:hover .play-btn svg { transform: scale(1.05); }
+
+  /* En móvil: siempre visible ya que no hay hover */
+  @media (max-width: 640px) {
+    .play-btn {
+      opacity: 1;
+      background: rgba(0,0,0,0.2);
+    }
+    .play-btn.playing {
+      opacity: 0;
+    }
+  }
 
 
   /* ── RESPONSIVE ── */
@@ -503,7 +535,6 @@ import Layout from '../layouts/Layout.astro';
     .icon-btn { width: 2.6rem; height: 2.6rem; }
     .icon-row { gap: 0.55rem; }
     .bio-section { padding: 10vh 7vw; }
-    .bio-bg { background-attachment: scroll; }
     .gallery-section { padding: 8vh 4vw; }
     .gallery-grid { gap: 0.5rem; }
   }
@@ -513,6 +544,7 @@ import Layout from '../layouts/Layout.astro';
 <script>
   // ── SCRAMBLE ──────────────────────────────
   const nameEl = document.getElementById('heroName') as HTMLElement;
+  const pageBg = document.getElementById('pageBg') as HTMLElement;
   const TARGET = 'OCTOGONAL';
   const CHARS  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#%&*';
 
@@ -533,6 +565,44 @@ import Layout from '../layouts/Layout.astro';
 
   scramble();
   setInterval(scramble, 15000);
+
+
+  // ── ZOOM + OSCURIDAD — misma variable, movimiento sincronizado ──
+  const darkOverlay = document.getElementById('darkOverlay') as HTMLElement;
+
+  // Lee la posición real de cada sección en el DOM
+  // Así los tramos son independientes del tamaño del contenido
+  const bioEl     = document.getElementById('bio')     as HTMLElement;
+  const galeriaEl = document.getElementById('galeria') as HTMLElement;
+
+  window.addEventListener('scroll', () => {
+    const scrollY   = window.scrollY;
+    const heroEnd   = bioEl.offsetTop;          // donde acaba hero y empieza bio
+    const bioEnd    = galeriaEl.offsetTop;       // donde acaba bio y empieza galería
+
+    let opacity = 0;
+
+    if (scrollY <= heroEnd) {
+      // Hero: 0.00 → 0.30
+      opacity = (scrollY / heroEnd) * 0.30;
+
+    } else if (scrollY <= bioEnd) {
+      // Bio: 0.30 → 0.80
+      const bioProgress = (scrollY - heroEnd) / (bioEnd - heroEnd);
+      opacity = 0.30 + bioProgress * 0.50;
+
+    } else {
+      // Galería: 0.80 → 1.00
+      const galProgress = Math.min((scrollY - bioEnd) / window.innerHeight, 1);
+      opacity = 0.80 + galProgress * 0.20;
+    }
+
+    // Zoom: de 1.0 a 1.25 entre inicio y fin de bio
+    const zoomProgress = Math.min(scrollY / bioEnd, 1);
+    pageBg.style.transform = `scale(${1 + zoomProgress * 0.25})`;
+
+    darkOverlay.style.opacity = String(opacity);
+  }, { passive: true });
 
 
   // ── COPIAR EMAIL ──────────────────────────
@@ -562,9 +632,7 @@ import Layout from '../layouts/Layout.astro';
     { text: 'Próximamente — nuevas fechas por anunciar',               cls: 'soon' },
   ];
 
-  // Escribe un texto carácter a carácter en un <li>
-  function typeLine(li: HTMLLIElement, text: string, delay: number): number {
-    const duration = text.length * 22; // ms totales para esta línea
+  function typeLine(li: HTMLLIElement, text: string, delay: number) {
     setTimeout(() => {
       li.style.opacity = '1';
       let i = 0;
@@ -574,14 +642,11 @@ import Layout from '../layouts/Layout.astro';
         if (i >= text.length) clearInterval(iv);
       }, 22);
     }, delay);
-    return duration;
   }
 
   function openDates() {
     datesPanel.classList.remove('hidden');
     datesList.innerHTML = '';
-
-    // Crea todos los <li> invisibles de una vez
     const items = DATES.map(d => {
       const li = document.createElement('li');
       li.className = d.cls;
@@ -589,12 +654,10 @@ import Layout from '../layouts/Layout.astro';
       datesList.appendChild(li);
       return { li, text: d.text };
     });
-
-    // Los escribe uno a uno, cada uno empieza cuando termina el anterior
-    let cumulativeDelay = 200;
+    let delay = 200;
     items.forEach(({ li, text }) => {
-      typeLine(li, text, cumulativeDelay);
-      cumulativeDelay += text.length * 22 + 80; // +80ms pausa entre líneas
+      typeLine(li, text, delay);
+      delay += text.length * 22 + 80;
     });
   }
 
@@ -614,13 +677,13 @@ import Layout from '../layouts/Layout.astro';
   const allVideos   = Array.from(document.querySelectorAll<HTMLVideoElement>('.g-video-wrap video'));
   const allPlayBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('.play-btn'));
 
-  function pauseOthers(currentVideo: HTMLVideoElement) {
+  function pauseOthers(current: HTMLVideoElement) {
     allVideos.forEach(v => {
-      if (v !== currentVideo) { v.pause(); v.currentTime = 0; }
+      if (v !== current) { v.pause(); v.currentTime = 0; }
     });
     allPlayBtns.forEach(b => {
       const vid = b.closest('.g-video-wrap')?.querySelector('video');
-      if (vid !== currentVideo) b.classList.remove('playing');
+      if (vid !== current) b.classList.remove('playing');
     });
   }
 
@@ -629,17 +692,7 @@ import Layout from '../layouts/Layout.astro';
     const btn   = document.getElementById(btnId)   as HTMLButtonElement;
     if (!video || !btn) return;
 
-    // Muestra el primer fotograma como miniatura al cargar los metadatos
-    video.addEventListener('loadedmetadata', () => {
-      video.currentTime = 0.1;
-    });
-
-    // Cuando busca al frame 0.1, congela ahí para mostrar la miniatura
-    video.addEventListener('seeked', () => {
-      if (video.paused) {
-        // No hacer nada más — el frame queda visible como poster
-      }
-    });
+    video.addEventListener('loadedmetadata', () => { video.currentTime = 0.1; });
 
     btn.addEventListener('click', () => {
       if (video.paused) {
