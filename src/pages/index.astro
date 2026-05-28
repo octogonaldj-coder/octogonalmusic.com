@@ -76,12 +76,12 @@ import Layout from '../layouts/Layout.astro';
     <!-- ═══ PANEL DE FECHAS ═══ -->
     <div class="dates-panel hidden" id="datesPanel">
       <ul class="dates-list" id="datesList"></ul>
-        <button class="dates-close-btn" id="datesCloseBtn" aria-label="Cerrar fechas">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="21" height="21">
-            <path d="M3 12L12 4l9 8"/>
-            <path d="M5 10v10h4v-6h6v6h4V10"/>
-          </svg>
-        </button>
+      <button class="dates-close-btn" id="datesCloseBtn" aria-label="Cerrar fechas">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="21" height="21">
+          <path d="M3 12L12 4l9 8"/>
+          <path d="M5 10v10h4v-6h6v6h4V10"/>
+        </svg>
+      </button>
     </div>
 
 
@@ -214,6 +214,19 @@ import Layout from '../layouts/Layout.astro';
       0 0 45px rgba(255, 255, 255, 0.5);
   }
 
+  /* Animación táctil en móvil */
+  @media (hover: none) {
+    .dates-list li:active {
+      opacity: 1 !important;
+      color: #ffffff !important;
+      transform: translateX(6px);
+      text-shadow:
+        0 0 8px rgba(255,255,255,1),
+        0 0 20px rgba(255,255,255,0.9),
+        0 0 45px rgba(255,255,255,0.5);
+    }
+  }
+
   .dates-list .soon {
     color: #777;
     font-style: italic;
@@ -287,14 +300,14 @@ import Layout from '../layouts/Layout.astro';
     margin-top: -0.8rem;
   }
 
-.icon-row {
-  display: flex;
-  gap: 0.85rem;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: -1rem;
-}
+  .icon-row {
+    display: flex;
+    gap: 0.85rem;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: -0.6rem;
+  }
 
   /* ── ICONOS — solo logo, sin fondo ── */
   .icon-btn {
@@ -532,6 +545,12 @@ import Layout from '../layouts/Layout.astro';
     .bio-section { padding: 10vh 7vw; }
     .gallery-section { padding: 8vh 4vw; }
     .gallery-grid { gap: 0.5rem; }
+    .dates-list {
+      font-size: clamp(0.62rem, 3.2vw, 0.78rem);
+      padding: 1rem 1.2rem;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
   }
 </style>
 
@@ -609,8 +628,8 @@ import Layout from '../layouts/Layout.astro';
   const datesCloseBtn = document.getElementById('datesCloseBtn') as HTMLButtonElement;
 
   const DATES = [
-    { text: '19/12/2025  —  Maestros del Techno (PopLasserFM)',                              cls: '' },
-    { text: '14/02/2026  —  Delicatessen (León)', cls: '' },
+    { text: '19/12/2025  —  Maestros del Techno  (PopLasserFM)',                              cls: '' },
+    { text: '14/02/2026  —  Delicatessen  (León)', cls: '' },
     { text: '18/04/2026  —  Sala Arena  (Valencia de Don Juan, León)', cls: '' },
     { text: '25/04/2026  —  Private Party  (Rueda, Valladolid)',      cls: '' },
     { text: '25/04/2026  —  Pub Zaguán  (Mayorga, Valladolid)',        cls: '' },
@@ -656,6 +675,28 @@ import Layout from '../layouts/Layout.astro';
   document.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.key === 'Escape') closeDates();
   });
+
+  // ── ANIMACIÓN TÁCTIL EN FECHAS ────────────
+  datesList.addEventListener('touchstart', (e) => {
+    const li = (e.target as HTMLElement).closest('li');
+    if (!li) return;
+    Array.from(datesList.children).forEach(item => {
+      (item as HTMLElement).style.opacity = '0.15';
+    });
+    (li as HTMLElement).style.opacity = '1';
+    (li as HTMLElement).style.color = '#ffffff';
+    (li as HTMLElement).style.textShadow = '0 0 8px rgba(255,255,255,1), 0 0 20px rgba(255,255,255,0.9)';
+  }, { passive: true });
+
+  datesList.addEventListener('touchend', () => {
+    setTimeout(() => {
+      Array.from(datesList.children).forEach(item => {
+        (item as HTMLElement).style.opacity = '1';
+        (item as HTMLElement).style.color = '';
+        (item as HTMLElement).style.textShadow = '';
+      });
+    }, 400);
+  }, { passive: true });
 
 
   // ── VÍDEOS ───────────────────────────────
