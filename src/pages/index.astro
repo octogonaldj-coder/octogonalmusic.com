@@ -214,12 +214,11 @@ import Layout from '../layouts/Layout.astro';
       0 0 45px rgba(255, 255, 255, 0.5);
   }
 
-  /* Animación táctil en móvil */
+  /* Animación táctil en móvil: solo brillo, sin expansión */
   @media (hover: none) {
     .dates-list li:active {
       opacity: 1 !important;
       color: #ffffff !important;
-      transform: translateX(6px);
       text-shadow:
         0 0 8px rgba(255,255,255,1),
         0 0 20px rgba(255,255,255,0.9),
@@ -628,7 +627,7 @@ import Layout from '../layouts/Layout.astro';
   const datesCloseBtn = document.getElementById('datesCloseBtn') as HTMLButtonElement;
 
   const DATES = [
-    { text: '19/12/2025  —  Maestros del Techno  (PopLasserFM)',                              cls: '' },
+    { text: '19/12/2025  —  Maestros del Techno (PopLasserFM)',                              cls: '' },
     { text: '14/02/2026  —  Delicatessen  (León)', cls: '' },
     { text: '18/04/2026  —  Sala Arena  (Valencia de Don Juan, León)', cls: '' },
     { text: '25/04/2026  —  Private Party  (Rueda, Valladolid)',      cls: '' },
@@ -685,7 +684,6 @@ import Layout from '../layouts/Layout.astro';
     });
     (li as HTMLElement).style.opacity = '1';
     (li as HTMLElement).style.color = '#ffffff';
-    (li as HTMLElement).style.textShadow = '0 0 8px rgba(255,255,255,1), 0 0 20px rgba(255,255,255,0.9)';
   }, { passive: true });
 
   datesList.addEventListener('touchend', () => {
@@ -693,7 +691,6 @@ import Layout from '../layouts/Layout.astro';
       Array.from(datesList.children).forEach(item => {
         (item as HTMLElement).style.opacity = '1';
         (item as HTMLElement).style.color = '';
-        (item as HTMLElement).style.textShadow = '';
       });
     }, 400);
   }, { passive: true });
