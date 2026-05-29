@@ -216,15 +216,14 @@ import Layout from '../layouts/Layout.astro';
 
   /* Animación táctil en móvil: solo brillo, sin expansión */
   @media (hover: none) {
-    .dates-list li:active {
-      opacity: 1 !important;
-      color: #ffffff !important;
-      text-shadow:
-        0 0 8px rgba(255,255,255,1),
-        0 0 20px rgba(255,255,255,0.9),
-        0 0 45px rgba(255,255,255,0.5);
-    }
+  .dates-list:hover li {
+    opacity: 1 !important;
   }
+  .dates-list li:hover {
+    transform: none;
+    letter-spacing: 0.04em;
+  }
+}
 
   .dates-list .soon {
     color: #777;
@@ -737,4 +736,4 @@ import Layout from '../layouts/Layout.astro';
 
   setupVideo('vid1', 'playBtn1');
   setupVideo('vid2', 'playBtn2');
-</script>
+</script>media
