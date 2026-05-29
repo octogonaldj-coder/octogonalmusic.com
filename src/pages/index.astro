@@ -196,7 +196,7 @@ import Layout from '../layouts/Layout.astro';
     min-height: 1.6em;
     color: #999999;
     cursor: default;
-    transition: opacity 0.3s ease, transform 0.3s ease, letter-spacing 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
   }
 
   .dates-list:hover li {
@@ -206,29 +206,37 @@ import Layout from '../layouts/Layout.astro';
   .dates-list li:hover {
     opacity: 1 !important;
     color: #ffffff !important;
-    transform: translateX(10px);
-    letter-spacing: 0.2em;
+    transform: scale(1.04);
     text-shadow:
       0 0 8px rgba(255, 255, 255, 1),
       0 0 20px rgba(255, 255, 255, 0.9),
       0 0 45px rgba(255, 255, 255, 0.5);
   }
 
-  /* Animación táctil en móvil: solo brillo, sin expansión */
+  /* Móvil: sin expansión ni desplazamiento */
   @media (hover: none) {
-  .dates-list:hover li {
-    opacity: 1 !important;
+    .dates-list:hover li { opacity: 1 !important; }
+    .dates-list li:hover { transform: none; letter-spacing: 0.04em; }
+    .dates-list li:active {
+      opacity: 1 !important;
+      color: #ffffff !important;
+      text-shadow:
+        0 0 8px rgba(255,255,255,1),
+        0 0 20px rgba(255,255,255,0.9),
+        0 0 45px rgba(255,255,255,0.5);
+    }
   }
-  .dates-list li:hover {
-    transform: none;
-    letter-spacing: 0.04em;
-  }
-}
 
-  .dates-list .soon {
-    color: #777;
-    font-style: italic;
-  }
+  /* "Próximamente" — separada y con reescritura animada via JS */
+.dates-list .soon {
+  color: #eeeeee;
+  font-style: italic;
+  margin-top: 1.4rem;
+  display: block;
+  height: 2.8em;        /* ← igual que el line-height del padre */
+  line-height: 2.8em;   /* ← alinea verticalmente el texto dentro */
+  overflow: hidden;     /* ← por si acaso */
+}
 
   .play-btn.playing { opacity: 0 !important; }
 </style>
@@ -450,14 +458,14 @@ import Layout from '../layouts/Layout.astro';
     width: 100%;
   }
 
-.bio-body p {
-  color: #b0b0b0;
-  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
-  font-weight: 300;
-  line-height: 1.65;        /* ← antes 1.95, líneas más juntas */
-  margin-bottom: 2.4rem;    /* ← antes 1.6rem, más separación entre párrafos */
-  text-align: justify;      /* ← añade esto */
-}
+  .bio-body p {
+    color: #b0b0b0;
+    font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+    font-weight: 300;
+    line-height: 1.65;
+    margin-bottom: 2.4rem;
+    text-align: justify;
+  }
 
   .bio-body p strong { color: #e0e0e0; font-weight: 600; }
 
@@ -627,12 +635,12 @@ import Layout from '../layouts/Layout.astro';
   const datesCloseBtn = document.getElementById('datesCloseBtn') as HTMLButtonElement;
 
   const DATES = [
-    { text: '19/12/2025  —  Maestros del Techno (PopLasserFM)',                              cls: '' },
-    { text: '14/02/2026  —  Delicatessen  (León)', cls: '' },
+    { text: '19/12/2025  —  Maestros del Techno (PopLasserFM)', cls: '' },
+    { text: '14/02/2026  —  Delicatessen  (León)',              cls: '' },
     { text: '18/04/2026  —  Sala Arena  (Valencia de Don Juan, León)', cls: '' },
-    { text: '25/04/2026  —  Private Party  (Rueda, Valladolid)',      cls: '' },
-    { text: '25/04/2026  —  Pub Zaguán  (Mayorga, Valladolid)',        cls: '' },
-    { text: 'Próximamente — nuevas fechas por anunciar',               cls: 'soon' },
+    { text: '25/04/2026  —  Private Party  (Rueda, Valladolid)', cls: '' },
+    { text: '25/04/2026  —  Pub Zaguán  (Mayorga, Valladolid)',  cls: '' },
+    { text: 'Próximamente — nuevas fechas por anunciar',         cls: 'soon' },
   ];
 
   function typeLine(li: HTMLLIElement, text: string, delay: number) {
@@ -647,9 +655,42 @@ import Layout from '../layouts/Layout.astro';
     }, delay);
   }
 
+  // ── ANIMACIÓN REESCRITURA "SOON" ──────────
+  let soonAnimTimer: ReturnType<typeof setTimeout> | null = null;
+
+function animateSoon() {
+  const soonEl = datesList.querySelector('.soon') as HTMLElement | null;
+  if (!soonEl) return;
+
+  const fullText = 'Próximamente — nuevas fechas por anunciar';
+
+function escribir() {
+    soonEl.textContent = '';
+    let i = 0;
+    function tick() {
+      i++;
+      soonEl.textContent = fullText.slice(0, i);
+      if (i < fullText.length) {
+        soonAnimTimer = setTimeout(tick, 38);
+      } else {
+        // espera, borra de golpe y vuelve a escribir
+        soonAnimTimer = setTimeout(() => {
+          soonEl.textContent = '';
+          soonAnimTimer = setTimeout(escribir, 500);
+        }, 5000);  /* ← tiempo que permanece escrito */
+      }
+    }
+    tick();
+  }
+
+  escribir();
+}
+
   function openDates() {
     datesPanel.classList.remove('hidden');
     datesList.innerHTML = '';
+    if (soonAnimTimer) clearTimeout(soonAnimTimer);
+
     const items = DATES.map(d => {
       const li = document.createElement('li');
       if (d.cls) li.className = d.cls;
@@ -657,16 +698,21 @@ import Layout from '../layouts/Layout.astro';
       datesList.appendChild(li);
       return { li, text: d.text };
     });
+
     let delay = 200;
     items.forEach(({ li, text }) => {
       typeLine(li, text, delay);
       delay += text.length * 22 + 80;
     });
+
+    // arranca la animación "soon" cuando todo ha terminado de escribirse
+    setTimeout(animateSoon, delay + 600);
   }
 
   function closeDates() {
     datesPanel.classList.add('hidden');
     datesList.innerHTML = '';
+    if (soonAnimTimer) { clearTimeout(soonAnimTimer); soonAnimTimer = null; }
   }
 
   calBtn.addEventListener('click', openDates);
@@ -736,4 +782,4 @@ import Layout from '../layouts/Layout.astro';
 
   setupVideo('vid1', 'playBtn1');
   setupVideo('vid2', 'playBtn2');
-</script>media
+</script>
