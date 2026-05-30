@@ -709,16 +709,20 @@ import Layout from '../layouts/Layout.astro';
     const soonEl = datesList.querySelector('.soon') as HTMLElement | null;
     if (!soonEl) return;
     const fullText = 'Próximamente — nuevas fechas por anunciar';
+
     function escribir() {
+      if (!soonEl) return;
       soonEl.textContent = '';
       let i = 0;
       function tick() {
+        if (!soonEl) return;
         i++;
         soonEl.textContent = fullText.slice(0, i);
         if (i < fullText.length) {
           soonAnimTimer = setTimeout(tick, 38);
         } else {
           soonAnimTimer = setTimeout(() => {
+            if (!soonEl) return;
             soonEl.textContent = '';
             soonAnimTimer = setTimeout(escribir, 500);
           }, 5000);
