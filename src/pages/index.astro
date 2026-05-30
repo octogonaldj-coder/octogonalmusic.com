@@ -17,7 +17,8 @@ import Layout from '../layouts/Layout.astro';
 
         <div class="icon-row">
 
-          <button class="icon-btn" aria-label="SoundCloud" data-href="https://soundcloud.com/octogonal-909101707">
+          <a href="https://soundcloud.com/octogonal-909101707"
+             target="_blank" rel="noopener" class="icon-btn" aria-label="SoundCloud">
             <svg viewBox="0 0 32 20" fill="currentColor" width="28" height="21" aria-hidden="true">
               <path d="M1.4 12.9c.35 0 .63-.28 .63-.63V8.9c0-.35-.28-.63-.63-.63s-.63 .28-.63 .63v3.37c0 .35 .28 .63 .63 .63z"/>
               <path d="M4.1 15.1c.43 0 .78-.35 .78-.78V6.85c0-.43-.35-.78-.78-.78s-.78 .35-.78 .78v7.47c0 .43 .35 .78 .78 .78z"/>
@@ -26,27 +27,30 @@ import Layout from '../layouts/Layout.astro';
               <path d="M13.2 17.05c.67 0 1.2-.53 1.2-1.2V3.95c0-.67-.53-1.2-1.2-1.2S12 3.28 12 3.95v11.9c0 .67 .53 1.2 1.2 1.2z"/>
               <path d="M16.1 2.95c-.42 0-.83 .04-1.22 .12v13.8c.36 .12 .74 .18 1.14 .18h10.7c2.63 0 4.76-2.13 4.76-4.76s-2.13-4.76-4.76-4.76c-.66 0-1.29 .13-1.86 .37-1.14-2.88-3.95-4.95-7.26-4.95h-1.5z"/>
             </svg>
-          </button>
+          </a>
 
-          <button class="icon-btn" aria-label="Instagram" data-href="https://www.instagram.com/octogonal__/">
+          <a href="https://www.instagram.com/octogonal__/"
+             target="_blank" rel="noopener" class="icon-btn" aria-label="Instagram">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
               <rect x="2" y="2" width="20" height="20" rx="5"/>
               <circle cx="12" cy="12" r="4"/>
               <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
             </svg>
-          </button>
+          </a>
 
-          <button class="icon-btn" aria-label="YouTube" data-href="https://www.youtube.com/@Octogonal_dj">
+          <a href="https://www.youtube.com/@Octogonal_dj"
+             target="_blank" rel="noopener" class="icon-btn" aria-label="YouTube">
             <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
               <path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>
             </svg>
-          </button>
+          </a>
 
-          <button class="icon-btn" aria-label="TikTok" data-href="https://www.tiktok.com/@octogonal__">
+          <a href="https://www.tiktok.com/@octogonal__"
+             target="_blank" rel="noopener" class="icon-btn" aria-label="TikTok">
             <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
               <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.06a8.27 8.27 0 004.83 1.54V7.15a4.85 4.85 0 01-1.06-.46z"/>
             </svg>
-          </button>
+          </a>
 
           <button class="icon-btn mail-btn" id="mailBtn" aria-label="Copiar email">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
@@ -211,20 +215,21 @@ import Layout from '../layouts/Layout.astro';
     transition: opacity 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
   }
 
-  .dates-list:hover li { opacity: 0.15 !important; }
-
-  .dates-list li:hover {
-    opacity: 1 !important;
-    color: #ffffff !important;
-    text-shadow:
-      0 0 8px rgba(255,255,255,1),
-      0 0 20px rgba(255,255,255,0.9),
-      0 0 45px rgba(255,255,255,0.5);
+  /* Hover SOLO con ratón real */
+  @media (hover: hover) {
+    .dates-list:hover li { opacity: 0.15; }
+    .dates-list li:hover {
+      opacity: 1 !important;
+      color: #ffffff !important;
+      text-shadow:
+        0 0 8px rgba(255,255,255,1),
+        0 0 20px rgba(255,255,255,0.9),
+        0 0 45px rgba(255,255,255,0.5);
+    }
   }
 
+  /* Táctil: brillo al mantener pulsado */
   @media (hover: none) {
-    .dates-list:hover li { opacity: 1 !important; }
-    .dates-list li:hover { transform: none; letter-spacing: 0.04em; }
     .dates-list li:active {
       opacity: 1 !important;
       color: #ffffff !important;
@@ -318,6 +323,7 @@ import Layout from '../layouts/Layout.astro';
     margin-top: -0.6rem;
   }
 
+  /* ── ICONOS ── */
   .icon-btn {
     width: 3.4rem;
     height: 3.4rem;
@@ -335,10 +341,15 @@ import Layout from '../layouts/Layout.astro';
     -webkit-tap-highlight-color: transparent;
   }
 
-  .icon-btn:hover         { transform: scale(1.15); color: #ffffff; }
-  .icon-btn:focus         { outline: none; color: rgba(255,255,255,0.7); }
-  .icon-btn:focus-visible { outline: none; color: rgba(255,255,255,0.7); }
-  .icon-btn:active        { color: rgba(255,255,255,0.7); }
+  /* El color blanco SOLO se aplica con ratón real, nunca al tocar */
+  @media (hover: hover) {
+    .icon-btn:hover { transform: scale(1.15); color: #ffffff; }
+  }
+
+  /* En cualquier dispositivo, foco/activo mantienen el color de descanso */
+  .icon-btn:focus,
+  .icon-btn:focus-visible,
+  .icon-btn:active { color: rgba(255,255,255,0.7); outline: none; }
 
   .cal-btn {
     color: rgba(255,255,255,0.55);
@@ -346,10 +357,12 @@ import Layout from '../layouts/Layout.astro';
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='29,2 71,2 98,29 98,71 71,98 29,98 2,71 2,29' fill='none' stroke='white' stroke-width='1.5' stroke-opacity='0.35'/%3E%3C/svg%3E") center/contain no-repeat;
   }
 
-  .cal-btn:hover {
-    transform: scale(1.1);
-    color: #ffffff;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='29,2 71,2 98,29 98,71 71,98 29,98 2,71 2,29' fill='white' fill-opacity='0.08' stroke='white' stroke-width='1.5' stroke-opacity='0.85'/%3E%3C/svg%3E");
+  @media (hover: hover) {
+    .cal-btn:hover {
+      transform: scale(1.1);
+      color: #ffffff;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='29,2 71,2 98,29 98,71 71,98 29,98 2,71 2,29' fill='white' fill-opacity='0.08' stroke='white' stroke-width='1.5' stroke-opacity='0.85'/%3E%3C/svg%3E");
+    }
   }
 
   .tooltip {
@@ -410,8 +423,10 @@ import Layout from '../layouts/Layout.astro';
     transition: background-image 0.2s;
   }
 
-  .dates-close-btn:hover {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='29,2 71,2 98,29 98,71 71,98 29,98 2,71 2,29' fill='white' fill-opacity='0.1' stroke='white' stroke-width='1.5' stroke-opacity='0.8'/%3E%3C/svg%3E");
+  @media (hover: hover) {
+    .dates-close-btn:hover {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='29,2 71,2 98,29 98,71 71,98 29,98 2,71 2,29' fill='white' fill-opacity='0.1' stroke='white' stroke-width='1.5' stroke-opacity='0.8'/%3E%3C/svg%3E");
+    }
   }
 
   .s-label {
@@ -497,8 +512,6 @@ import Layout from '../layouts/Layout.astro';
     transition: transform 0.4s ease, opacity 0.3s ease;
   }
 
-  .g-photo:hover .g-img { transform: scale(1.03); opacity: 0.85; }
-
   .g-photo::after {
     content: '';
     position: absolute;
@@ -508,7 +521,10 @@ import Layout from '../layouts/Layout.astro';
     pointer-events: none;
   }
 
-  .g-photo:hover::after { background: rgba(0,0,0,0.15); }
+  @media (hover: hover) {
+    .g-photo:hover .g-img { transform: scale(1.03); opacity: 0.85; }
+    .g-photo:hover::after { background: rgba(0,0,0,0.15); }
+  }
 
   .g-video-wrap {
     position: relative;
@@ -541,9 +557,12 @@ import Layout from '../layouts/Layout.astro';
     transition: transform 0.18s, opacity 0.18s;
   }
 
-  .g-video-wrap:hover .video-thumb-overlay { background: rgba(0,0,0,0.35); }
-  .g-video-wrap:hover .video-thumb-overlay svg { transform: scale(1.1); opacity: 1; }
+  @media (hover: hover) {
+    .g-video-wrap:hover .video-thumb-overlay { background: rgba(0,0,0,0.35); }
+    .g-video-wrap:hover .video-thumb-overlay svg { transform: scale(1.1); opacity: 1; }
+  }
 
+  /* ── LIGHTBOX ── */
   .lightbox {
     position: fixed;
     inset: 0;
@@ -574,6 +593,7 @@ import Layout from '../layouts/Layout.astro';
   .lightbox-img.hidden,
   .lightbox-video.hidden { display: none; }
 
+  /* ── RESPONSIVE ── */
   @media (max-width: 640px) {
     .name { font-size: clamp(2.5rem, 13vw, 4.5rem); letter-spacing: 0.02em; }
     .tagline { font-size: 0.58rem; letter-spacing: 0.2rem; }
@@ -600,16 +620,6 @@ import Layout from '../layouts/Layout.astro';
   faviconLink.type = 'image/svg+xml';
   faviconLink.href = `data:image/svg+xml,${faviconSvg}`;
   document.head.appendChild(faviconLink);
-
-
-  // ── ENLACES SOCIALES SIN FOCO PERSISTENTE ─
-  document.querySelectorAll<HTMLElement>('.icon-btn[data-href]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      btn.blur();
-      const url = btn.getAttribute('data-href') || '';
-      setTimeout(() => window.open(url, '_blank', 'noopener'), 50);
-    });
-  });
 
 
   // ── SCRAMBLE ──────────────────────────────
