@@ -183,7 +183,6 @@ import Layout from '../layouts/Layout.astro';
     overflow-x: hidden;
   }
 
-  /* Elimina highlight y foco persistente en móvil */
   a, button {
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
@@ -323,7 +322,6 @@ import Layout from '../layouts/Layout.astro';
     margin-top: -0.6rem;
   }
 
-  /* ── ICONOS ── */
   .icon-btn {
     width: 3.4rem;
     height: 3.4rem;
@@ -341,9 +339,9 @@ import Layout from '../layouts/Layout.astro';
     -webkit-tap-highlight-color: transparent;
   }
 
-  .icon-btn:hover           { transform: scale(1.15); color: #ffffff; }
-  .icon-btn:focus           { outline: none; color: rgba(255,255,255,0.7); }
-  .icon-btn:focus-visible   { outline: none; color: rgba(255,255,255,0.7); }
+  .icon-btn:hover         { transform: scale(1.15); color: #ffffff; }
+  .icon-btn:focus         { outline: none; color: rgba(255,255,255,0.7); }
+  .icon-btn:focus-visible { outline: none; color: rgba(255,255,255,0.7); }
 
   .cal-btn {
     color: rgba(255,255,255,0.55);
@@ -604,27 +602,31 @@ import Layout from '../layouts/Layout.astro';
 
 <script>
   // ── FAVICON OCTÓGONO ──────────────────────
- const faviconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="29,2 71,2 98,29 98,71 71,98 29,98 2,71 2,29" fill="none" stroke="%23888888" stroke-width="16"/></svg>`;
+  const faviconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="30,5 70,5 95,30 95,70 70,95 30,95 5,70 5,30" fill="none" stroke="%23888888" stroke-width="14"/></svg>`;
   const faviconUrl = `data:image/svg+xml,${faviconSvg}`;
-  const link = document.createElement('link');
-  link.rel = 'icon';
-  link.type = 'image/svg+xml';
-  link.href = faviconUrl;
-  document.head.appendChild(link);
+  const faviconLink = document.createElement('link');
+  faviconLink.rel = 'icon';
+  faviconLink.type = 'image/svg+xml';
+  faviconLink.href = faviconUrl;
+  document.head.appendChild(faviconLink);
 
 
   // ── RESET FOCO EN MÓVIL ──────────────────
-  document.querySelectorAll<HTMLAnchorElement>('.icon-btn[href]').forEach(link => {
-    link.addEventListener('click', () => {
-      setTimeout(() => link.blur(), 300);
-    });
+  function blurActive() {
+    (document.activeElement as HTMLElement)?.blur();
+  }
+
+  window.addEventListener('pageshow', blurActive);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') blurActive();
   });
 
-  // También al volver a la página (visibilitychange)
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'visible') {
-      (document.activeElement as HTMLElement)?.blur();
-    }
+  document.querySelectorAll<HTMLAnchorElement>('.icon-btn[href]').forEach(link => {
+    link.addEventListener('click', () => {
+      setTimeout(blurActive, 100);
+      setTimeout(blurActive, 500);
+      setTimeout(blurActive, 1000);
+    });
   });
 
 
