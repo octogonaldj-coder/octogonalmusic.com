@@ -215,21 +215,21 @@ import Layout from '../layouts/Layout.astro';
     transition: opacity 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
   }
 
-  /* Hover SOLO con ratón real */
-  @media (hover: hover) {
-    .dates-list:hover li { opacity: 0.15; }
-    .dates-list li:hover {
-      opacity: 1 !important;
-      color: #ffffff !important;
-      text-shadow:
-        0 0 8px rgba(255,255,255,1),
-        0 0 20px rgba(255,255,255,0.9),
-        0 0 45px rgba(255,255,255,0.5);
-    }
+  /* ── Animación de fechas (como estaba originalmente) ── */
+  .dates-list:hover li { opacity: 0.15 !important; }
+
+  .dates-list li:hover {
+    opacity: 1 !important;
+    color: #ffffff !important;
+    text-shadow:
+      0 0 8px rgba(255,255,255,1),
+      0 0 20px rgba(255,255,255,0.9),
+      0 0 45px rgba(255,255,255,0.5);
   }
 
-  /* Táctil: brillo al mantener pulsado */
   @media (hover: none) {
+    .dates-list:hover li { opacity: 1 !important; }
+    .dates-list li:hover { transform: none; letter-spacing: 0.04em; }
     .dates-list li:active {
       opacity: 1 !important;
       color: #ffffff !important;
@@ -341,15 +341,17 @@ import Layout from '../layouts/Layout.astro';
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* El color blanco SOLO se aplica con ratón real, nunca al tocar */
+  /* Hover (escala + blanco) SOLO con ratón real */
   @media (hover: hover) {
     .icon-btn:hover { transform: scale(1.15); color: #ffffff; }
   }
 
-  /* En cualquier dispositivo, foco/activo mantienen el color de descanso */
+  /* Iluminación al tocar: se enciende mientras mantienes el dedo y se apaga al soltar */
+  .icon-btn:active { color: #ffffff; }
+
+  /* El foco NO debe quedar iluminado (evita el bug de "pegado" al volver de otra app) */
   .icon-btn:focus,
-  .icon-btn:focus-visible,
-  .icon-btn:active { color: rgba(255,255,255,0.7); outline: none; }
+  .icon-btn:focus-visible { color: rgba(255,255,255,0.7); outline: none; }
 
   .cal-btn {
     color: rgba(255,255,255,0.55);
