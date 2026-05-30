@@ -183,10 +183,15 @@ import Layout from '../layouts/Layout.astro';
     overflow-x: hidden;
   }
 
-  /* Elimina el resaltado azul/gris al pulsar en móvil */
+  /* Elimina highlight y foco persistente en móvil */
   a, button {
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
+  }
+
+  a:focus, a:focus-visible,
+  button:focus, button:focus-visible {
+    outline: none;
   }
 
   .dates-list {
@@ -318,6 +323,7 @@ import Layout from '../layouts/Layout.astro';
     margin-top: -0.6rem;
   }
 
+  /* ── ICONOS ── */
   .icon-btn {
     width: 3.4rem;
     height: 3.4rem;
@@ -335,7 +341,9 @@ import Layout from '../layouts/Layout.astro';
     -webkit-tap-highlight-color: transparent;
   }
 
-  .icon-btn:hover { transform: scale(1.15); color: #ffffff; }
+  .icon-btn:hover           { transform: scale(1.15); color: #ffffff; }
+  .icon-btn:focus           { outline: none; color: rgba(255,255,255,0.7); }
+  .icon-btn:focus-visible   { outline: none; color: rgba(255,255,255,0.7); }
 
   .cal-btn {
     color: rgba(255,255,255,0.55);
@@ -541,7 +549,6 @@ import Layout from '../layouts/Layout.astro';
   .g-video-wrap:hover .video-thumb-overlay { background: rgba(0,0,0,0.35); }
   .g-video-wrap:hover .video-thumb-overlay svg { transform: scale(1.1); opacity: 1; }
 
-
   /* ── LIGHTBOX ── */
   .lightbox {
     position: fixed;
@@ -576,7 +583,6 @@ import Layout from '../layouts/Layout.astro';
   .lightbox-img.hidden,
   .lightbox-video.hidden { display: none; }
 
-
   /* ── RESPONSIVE ── */
   @media (max-width: 640px) {
     .name { font-size: clamp(2.5rem, 13vw, 4.5rem); letter-spacing: 0.02em; }
@@ -598,13 +604,28 @@ import Layout from '../layouts/Layout.astro';
 
 <script>
   // ── FAVICON OCTÓGONO ──────────────────────
-  const faviconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="29,2 71,2 98,29 98,71 71,98 29,98 2,71 2,29" fill="none" stroke="%23888888" stroke-width="10"/></svg>`;
+ const faviconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="29,2 71,2 98,29 98,71 71,98 29,98 2,71 2,29" fill="none" stroke="%23888888" stroke-width="16"/></svg>`;
   const faviconUrl = `data:image/svg+xml,${faviconSvg}`;
   const link = document.createElement('link');
   link.rel = 'icon';
   link.type = 'image/svg+xml';
   link.href = faviconUrl;
   document.head.appendChild(link);
+
+
+  // ── RESET FOCO EN MÓVIL ──────────────────
+  document.querySelectorAll<HTMLAnchorElement>('.icon-btn[href]').forEach(link => {
+    link.addEventListener('click', () => {
+      setTimeout(() => link.blur(), 300);
+    });
+  });
+
+  // También al volver a la página (visibilitychange)
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      (document.activeElement as HTMLElement)?.blur();
+    }
+  });
 
 
   // ── SCRAMBLE ──────────────────────────────
@@ -816,7 +837,6 @@ import Layout from '../layouts/Layout.astro';
     }, 280);
   }
 
-  // Fotos
   document.querySelectorAll<HTMLElement>('.g-photo').forEach(item => {
     item.addEventListener('click', () => {
       const img = item.querySelector('img');
@@ -824,7 +844,6 @@ import Layout from '../layouts/Layout.astro';
     });
   });
 
-  // Vídeos
   document.querySelectorAll<HTMLElement>('.g-video-wrap').forEach(item => {
     item.addEventListener('click', () => {
       const video = item.querySelector('video');
@@ -833,15 +852,12 @@ import Layout from '../layouts/Layout.astro';
     });
   });
 
-  // Cerrar al tocar en cualquier parte del lightbox
   lightbox.addEventListener('click', closeLightbox);
 
 
   // ── THUMBNAIL VÍDEOS EN MÓVIL ─────────────
   document.querySelectorAll<HTMLVideoElement>('.g-video-wrap video').forEach(video => {
-    video.addEventListener('loadedmetadata', () => {
-      video.currentTime = 0.1;
-    });
+    video.addEventListener('loadedmetadata', () => { video.currentTime = 0.1; });
     video.addEventListener('seeked', () => {
       const canvas = document.createElement('canvas');
       canvas.width  = video.videoWidth;
