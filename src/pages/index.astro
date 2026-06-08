@@ -615,14 +615,6 @@ import Layout from '../layouts/Layout.astro';
 
 
 <script>
-  // ── FAVICON OCTÓGONO ──────────────────────
-  const faviconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="30,5 70,5 95,30 95,70 70,95 30,95 5,70 5,30" fill="none" stroke="%23888888" stroke-width="14"/></svg>`;
-  const faviconLink = document.createElement('link');
-  faviconLink.rel = 'icon';
-  faviconLink.type = 'image/svg+xml';
-  faviconLink.href = `data:image/svg+xml,${faviconSvg}`;
-  document.head.appendChild(faviconLink);
-
 
   // ── SCRAMBLE ──────────────────────────────
   const nameEl = document.getElementById('heroName') as HTMLElement;
