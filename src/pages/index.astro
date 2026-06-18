@@ -89,27 +89,11 @@ import Layout from '../layouts/Layout.astro';
     <section class="bio-section" id="bio">
       <div class="bio-inner">
         <p class="s-label">Biografía</p>
-        <div class="bio-body">
-          <p>
-            <strong>OCTOGONAL</strong> es la nueva identidad de un DJ gallego nacido en 1998 que, tras un cambio de aires
-            en su trayectoria, inicia una etapa centrada plenamente en su visión personal del Techno. Su nombre,
-            inspirado en una figura arquitectónica vinculada a sus raíces, refleja precisión, estructura y equilibrio;
-            conceptos que también definen su forma de entender la música. Era el momento de dejar de adaptarse
-            a lo que había y empezar a construir algo propio.
-          </p>
-          <p>
-            Su sonido se define como un Techno sin etiquetas. Encasillar no tiene mucho sentido cuando lo que
-            importa es cómo te hace sentir. Contundente, con pegada y con bajo, pero pensado para bailar, no
-            para intimidar. Su referencia no es el techno oscuro ni el industrial, sino ese sonido que conecta
-            con gente que jura que el techno no es lo suyo y acaba sin querer parar.
-          </p>
-          <p>
-            En cabina, su forma de mezclar da espacio a cada track, creando un flujo continuo donde el groove
-            es el protagonista. No busca sorprender con golpes de efecto, busca que no te des cuenta de cómo
-            ha pasado el tiempo. El comentario que más le gusta escuchar al final de una noche es el de la
-            persona que le dice — <em>"para no gustarme el techno, me lo he pasado bien"</em> — y eso es
-            exactamente lo que construye cada vez que se pone detrás de los platos.
-          </p>
+        <div class="bio-body" id="bioBody"></div>
+        <div class="lang-row">
+          <button class="lang-btn active" data-lang="es">ES</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="gl">GL</button>
         </div>
       </div>
     </section>
@@ -215,7 +199,6 @@ import Layout from '../layouts/Layout.astro';
     transition: opacity 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
   }
 
-  /* ── Animación de fechas (como estaba originalmente) ── */
   .dates-list:hover li { opacity: 0.15 !important; }
 
   .dates-list li:hover {
@@ -238,6 +221,22 @@ import Layout from '../layouts/Layout.astro';
         0 0 20px rgba(255,255,255,0.9),
         0 0 45px rgba(255,255,255,0.5);
     }
+  }
+
+  .bio-body p {
+    color: #b0b0b0;
+    font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+    font-weight: 300;
+    line-height: 1.65;
+    margin-bottom: 2.4rem;
+    text-align: justify;
+  }
+
+  .bio-body p strong { color: #e0e0e0; font-weight: 600; }
+  .bio-body p em { color: #d0d0d0; }
+
+  .dates-list li.upcoming {
+    color: #ffffff;
   }
 
   .dates-list .soon {
@@ -323,7 +322,6 @@ import Layout from '../layouts/Layout.astro';
     margin-top: -0.6rem;
   }
 
-  /* ── ICONOS ── */
   .icon-btn {
     width: 3.4rem;
     height: 3.4rem;
@@ -341,15 +339,11 @@ import Layout from '../layouts/Layout.astro';
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* Hover (escala + blanco) SOLO con ratón real */
   @media (hover: hover) {
     .icon-btn:hover { transform: scale(1.15); color: #ffffff; }
   }
 
-  /* Iluminación al tocar: se enciende mientras mantienes el dedo y se apaga al soltar */
   .icon-btn:active { color: #ffffff; }
-
-  /* El foco NO debe quedar iluminado (evita el bug de "pegado" al volver de otra app) */
   .icon-btn:focus,
   .icon-btn:focus-visible { color: rgba(255,255,255,0.7); outline: none; }
 
@@ -466,17 +460,36 @@ import Layout from '../layouts/Layout.astro';
     width: 100%;
   }
 
-  .bio-body p {
-    color: #b0b0b0;
-    font-size: clamp(1.05rem, 1.6vw, 1.25rem);
-    font-weight: 300;
-    line-height: 1.65;
-    margin-bottom: 2.4rem;
-    text-align: justify;
+
+
+  /* ── BOTONES DE IDIOMA ── */
+  .lang-row {
+    display: flex;
+    justify-content: center;
+    gap: 0.2rem;
+    margin-top: 0.5rem;
   }
 
-  .bio-body p strong { color: #e0e0e0; font-weight: 600; }
-  .bio-body p em { color: #d0d0d0; }
+  .lang-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.25);
+    padding: 0.5rem 0.7rem;
+    transition: color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .lang-btn.active { color: #ffffff; }
+  .lang-btn:active { color: #ffffff; }
+
+  @media (hover: hover) {
+    .lang-btn:hover { color: rgba(255,255,255,0.8); }
+  }
 
   .gallery-section {
     position: relative;
@@ -564,7 +577,6 @@ import Layout from '../layouts/Layout.astro';
     .g-video-wrap:hover .video-thumb-overlay svg { transform: scale(1.1); opacity: 1; }
   }
 
-  /* ── LIGHTBOX ── */
   .lightbox {
     position: fixed;
     inset: 0;
@@ -595,7 +607,6 @@ import Layout from '../layouts/Layout.astro';
   .lightbox-img.hidden,
   .lightbox-video.hidden { display: none; }
 
-  /* ── RESPONSIVE ── */
   @media (max-width: 640px) {
     .name { font-size: clamp(2.5rem, 13vw, 4.5rem); letter-spacing: 0.02em; }
     .tagline { font-size: 0.58rem; letter-spacing: 0.2rem; }
@@ -615,6 +626,44 @@ import Layout from '../layouts/Layout.astro';
 
 
 <script>
+  // ── TEXTOS DE BIOGRAFÍA ───────────────────
+  const BIO: Record<string, string> = {
+    es: `
+      <p><strong>OCTOGONAL</strong> es la nueva identidad de un DJ gallego nacido en 1998 que, tras un cambio de aires y la necesidad de empezar de cero, inicia una nueva etapa centrada en su visión más personal del Techno. Su nombre se inspira en una referencia arquitectónica vinculada a sus raíces y resume una forma de entender la música basada en la precisión, la estructura y el equilibrio.</p>
+      <p>Su sonido se define como <em>un Techno sin etiquetas</em>. Encasillar la música pierde importancia cuando lo que realmente importa es lo que te hace sentir, por ello entiende el Techno como un espacio abierto, donde pueden convivir distintos sonidos y subgéneros.</p>
+      <p>Esa filosofía también se refleja en su forma de mezclar, basándose en la técnica, la selección musical y la narrativa. La idea es que cada tema tenga su espacio, que cada transición aporte algo, sin abusar de recursos artificiales, y que la sesión evolucione poco a poco, de forma natural.</p>
+      <p>Al final, su objetivo es sencillo: que la música haga su trabajo, y que el tiempo avance sin que apenas te des cuenta.</p>
+    `,
+    en: `
+      <p><strong>OCTOGONAL</strong> is the new identity of a Galician DJ born in 1998 who, after a change of scenery and the need to start from scratch, is embarking on a new phase focused on his most personal vision of Techno. His name is inspired by an architectural reference linked to his roots and encapsulates an approach to music based on precision, structure, and balance.</p>
+      <p>His sound is defined as <em>label-free Techno</em>. Categorizing music becomes less important when what truly matters is how it makes you feel; that's why he sees techno as an open space where different sounds and subgenres can coexist.</p>
+      <p>That philosophy is also reflected in his mixing style, which is grounded in technique, music selection, and narrative. The idea is for each track to have its own space, for each transition to contribute something, without overusing artificial effects, and for the set to evolve gradually and naturally.</p>
+      <p>Ultimately, his goal is simple: for the music to do its job, and for time to pass almost without you noticing.</p>
+    `,
+    gl: `
+      <p><strong>OCTOGONAL</strong> é o novo alias dun DJ galego que nace en 1998 e que, tras un cambio de aires e a necesidade de comezar de cero, inicia unha nova etapa centrada na súa visión máis persoal do Techno. O seu nome inspírase nunha referencia arquitectónica ligada ás súas raíces e resume unha forma de entender a música baseada na precisión, a estrutura e o equilibrio.</p>
+      <p>O seu son defínese como <em>Techno sen etiquetas</em>. Encasillar a música perde importancia cando o que realmente importa é o que che fai sentir, por iso entende o techno como un espazo aberto onde poden convivir distintos sons e subxéneros.</p>
+      <p>Esta filosofía tamén se reflexa na súa forma de mesturar, baseándose na técnica, na selección musical e na narrativa. A idea é que cada tema teña o seu espazo, que cada transición achegue algo, sen abusar de recursos artificiais, e que a sesión evolucione pouco a pouco, de xeito natural.</p>
+      <p>Ao final, o seu obxectivo é sinxelo: que a música faga o seu traballo, e que o tempo avance sen que apenas te des conta.</p>
+    `,
+  };
+
+  const bioBody   = document.getElementById('bioBody')   as HTMLElement;
+  const langBtns  = document.querySelectorAll<HTMLButtonElement>('.lang-btn');
+
+  function setBio(lang: string) {
+    bioBody.innerHTML = BIO[lang] || BIO['es'];
+    langBtns.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+  }
+
+  setBio('es');
+
+  langBtns.forEach(btn => {
+    btn.addEventListener('click', () => setBio(btn.dataset.lang || 'es'));
+  });
+
 
   // ── SCRAMBLE ──────────────────────────────
   const nameEl = document.getElementById('heroName') as HTMLElement;
@@ -692,6 +741,10 @@ import Layout from '../layouts/Layout.astro';
     { text: '18/04/2026  —  Sala Arena  (Valencia de Don Juan, León)', cls: '' },
     { text: '25/04/2026  —  Private Party  (Rueda, Valladolid)', cls: '' },
     { text: '25/04/2026  —  Pub Zaguán  (Mayorga, Valladolid)',  cls: '' },
+    { text: '18/07/2026  —  Private Party  (Mayorga, Valladolid)', cls: 'upcoming' },
+    { text: '07/08/2026  —  Karma Club  (La Bañeza, León)',     cls: 'upcoming' },
+    { text: '08/08/2026  —  Karma Club  (La Bañeza, León)',     cls: 'upcoming' },
+    { text: '28/08/2026  —  Venres da Xira  (Vilalba, Lugo)',   cls: 'upcoming' },
     { text: 'Próximamente — nuevas fechas por anunciar',         cls: 'soon' },
   ];
 
