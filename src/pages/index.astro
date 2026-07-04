@@ -97,6 +97,14 @@ import Layout from '../layouts/Layout.astro';
           <path d="M5 10v10h4v-6h6v6h4V10"/>
         </svg>
       </button>
+      <div class="dates-ticker">
+        <div class="dates-ticker-track">
+          <span class="dates-ticker-item">Próximamente — Nuevas fechas por anunciar</span>
+          <span class="dates-ticker-item">Próximamente — Nuevas fechas por anunciar</span>
+          <span class="dates-ticker-item">Próximamente — Nuevas fechas por anunciar</span>
+          <span class="dates-ticker-item">Próximamente — Nuevas fechas por anunciar</span>
+        </div>
+      </div>
     </div>
 
 
@@ -268,14 +276,52 @@ import Layout from '../layouts/Layout.astro';
     opacity: 0.85;
   }
 
-  .dates-list .soon {
+  /* ── TICKER NOTICIARIO ── */
+  .dates-ticker {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2.6rem;
+    background: rgba(0,0,0,0.9);
+    border-top: 1px solid rgba(255,255,255,0.12);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    z-index: 205;
+    transform: translateY(100%);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .dates-ticker.visible { transform: translateY(0); }
+
+  .dates-ticker-track {
+    display: flex;
+    gap: 4rem;
+    white-space: nowrap;
+    animation: ticker-scroll 32s linear infinite;
+    animation-play-state: paused;
+    padding-left: 100%;
+  }
+
+  .dates-ticker.visible .dates-ticker-track {
+    animation-play-state: running;
+  }
+
+  .dates-ticker-item {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: clamp(0.72rem, 1.3vw, 0.85rem);
+    font-weight: 300;
+    letter-spacing: 0.15em;
     color: #ffffff;
     font-style: italic;
-    margin-top: 1.4rem;
-    display: block;
-    height: 2.8em;
-    line-height: 2.8em;
-    overflow: hidden;
+    text-transform: none;
+    flex-shrink: 0;
+  }
+
+  @keyframes ticker-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
   }
 
   /* ── PANEL DE PRENSA ── */
@@ -324,6 +370,22 @@ import Layout from '../layouts/Layout.astro';
     cursor: default;
     transition: opacity 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
   }
+
+  .press-section-label {
+    font-size: clamp(0.9rem, 1.6vw, 1.1rem);
+    letter-spacing: 0.3em;
+    color: #ffffff !important;
+    text-transform: uppercase;
+    line-height: 2.2;
+    margin-top: 0.6rem;
+    padding-bottom: 0.15rem;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    cursor: default;
+    display: block;
+    margin-bottom: 1.4rem;
+  }
+
+  .press-list li.press-section-label:first-child { margin-top: 0; }
 
   .panel-title {
     font-family: 'Bebas Neue', sans-serif;
@@ -549,112 +611,6 @@ import Layout from '../layouts/Layout.astro';
   .dates-panel > * { position: relative; z-index: 1; }
   .dates-panel.hidden { display: none; }
 
-  /* ── PANEL DE PRENSA ── */
-  .press-panel {
-    position: fixed;
-    inset: 0;
-    z-index: 200;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2.5rem;
-    background: url('/hero.JPG') center 20% / cover no-repeat;
-  }
-
-  .press-panel::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.72);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    z-index: 0;
-  }
-
-  .press-panel > * { position: relative; z-index: 1; }
-  .press-panel.hidden { display: none; }
-
-  /* Lista de prensa — misma base que dates-list */
-  .press-list {
-    list-style: none;
-    text-align: left;
-    width: fit-content;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: clamp(0.78rem, 1.5vw, 0.95rem);
-    font-weight: 300;
-    letter-spacing: 0.12em;
-    line-height: 2.8;
-    padding: 1rem 3rem;
-    max-height: 70vh;
-    overflow-y: auto;
-  }
-
-  .panel-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2rem, 5vw, 4rem);
-    letter-spacing: 0.14em;
-    color: #fff;
-    position: relative;
-    z-index: 1;
-  }
-
-  .press-list li {
-    color: #999999;
-    cursor: default;
-    transition: opacity 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
-  }
-
-  .press-link {
-    text-decoration: none;
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    line-height: 1.5;
-    padding: 0.5rem 0;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
-  }
-
-  .press-link-title {
-    color: #ffffff;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
-  }
-
-  .press-meta {
-    font-size: clamp(0.6rem, 0.9vw, 0.7rem);
-    letter-spacing: 0.18em;
-    color: #5c5c5c;
-    text-transform: uppercase;
-    display: block;
-    margin-top: 0.1rem;
-    transition: color 0.3s ease;
-  }
-
-  /* Hover igual que dates: los demás se atenúan, el activo brilla */
-  .press-list:hover li { opacity: 0.15 !important; }
-
-  .press-list li:hover { opacity: 1 !important; }
-
-  .press-list li:hover .press-link-title {
-    text-shadow:
-      0 0 8px rgba(255,255,255,1),
-      0 0 20px rgba(255,255,255,0.9),
-      0 0 45px rgba(255,255,255,0.5);
-  }
-
-  .press-list li:hover .press-meta { color: #aaaaaa; }
-
-  @media (hover: none) {
-    .press-list:hover li { opacity: 1 !important; }
-    .press-list li:active .press-link-title {
-      text-shadow:
-        0 0 8px rgba(255,255,255,1),
-        0 0 20px rgba(255,255,255,0.9),
-        0 0 45px rgba(255,255,255,0.5);
-    }
-    .press-list li:active .press-meta { color: #aaaaaa !important; }
-  }
-
   .dates-close-btn {
     width: 3.4rem;
     height: 3.4rem;
@@ -869,7 +825,6 @@ import Layout from '../layouts/Layout.astro';
       letter-spacing: 0.04em;
       white-space: nowrap;
     }
-    .press-content { padding: 0 1.2rem; }
   }
 </style>
 
@@ -993,7 +948,6 @@ import Layout from '../layouts/Layout.astro';
     { text: '07/08/2026  —  Karma Club  (La Bañeza, León)',     cls: 'upcoming' },
     { text: '08/08/2026  —  Karma Club  (La Bañeza, León)',     cls: 'upcoming' },
     { text: '28/08/2026  —  Venres da Xira  (Vilalba, Lugo)',   cls: 'upcoming' },
-    { text: 'Próximamente — nuevas fechas por anunciar',         cls: 'soon' },
   ];
 
   function typeLine(li: HTMLLIElement, text: string, delay: number) {
@@ -1008,39 +962,12 @@ import Layout from '../layouts/Layout.astro';
     }, delay);
   }
 
-  let soonAnimTimer: ReturnType<typeof setTimeout> | null = null;
-
-  function animateSoon() {
-    const soonEl = datesList.querySelector('.soon') as HTMLElement | null;
-    if (!soonEl) return;
-    const fullText = 'Próximamente — nuevas fechas por anunciar';
-    function escribir() {
-      if (!soonEl) return;
-      soonEl.textContent = '';
-      let i = 0;
-      function tick() {
-        if (!soonEl) return;
-        i++;
-        soonEl.textContent = fullText.slice(0, i);
-        if (i < fullText.length) {
-          soonAnimTimer = setTimeout(tick, 38);
-        } else {
-          soonAnimTimer = setTimeout(() => {
-            if (!soonEl) return;
-            soonEl.textContent = '';
-            soonAnimTimer = setTimeout(escribir, 500);
-          }, 5000);
-        }
-      }
-      tick();
-    }
-    escribir();
-  }
-
   function openDates() {
     datesPanel.classList.remove('hidden');
     datesList.innerHTML = '';
-    if (soonAnimTimer) clearTimeout(soonAnimTimer);
+    const ticker = datesPanel.querySelector('.dates-ticker') as HTMLElement | null;
+    if (ticker) ticker.classList.remove('visible');
+
     const items = DATES.map(d => {
       const li = document.createElement('li');
       if (d.cls) li.className = d.cls;
@@ -1053,13 +980,18 @@ import Layout from '../layouts/Layout.astro';
       typeLine(li, text, delay);
       delay += text.length * 22 + 80;
     });
-    setTimeout(animateSoon, delay + 600);
+
+    // Ticker aparece cuando terminan las fechas
+    setTimeout(() => {
+      if (ticker) ticker.classList.add('visible');
+    }, delay + 400);
   }
 
   function closeDates() {
     datesPanel.classList.add('hidden');
     datesList.innerHTML = '';
-    if (soonAnimTimer) { clearTimeout(soonAnimTimer); soonAnimTimer = null; }
+    const ticker = datesPanel.querySelector('.dates-ticker') as HTMLElement | null;
+    if (ticker) ticker.classList.remove('visible');
   }
 
   calBtn.addEventListener('click', openDates);
@@ -1080,34 +1012,56 @@ import Layout from '../layouts/Layout.astro';
     { title: 'Ritmo innato en progresión', meta: 'El Progreso · Nov 2017', url: 'https://www.elprogreso.es/articulo/noticias/ritmo-innato-en-progresion/201711062114421214973.html' },
   ];
 
-  function typePressLine(li: HTMLLIElement, title: string, meta: string, url: string, delay: number) {
-    setTimeout(() => {
+  function typePressLine(li: HTMLLIElement, title: string, meta: string): Promise<void> {
+    return new Promise(resolve => {
       li.style.opacity = '1';
-      const a = li.querySelector('a') as HTMLAnchorElement;
-      const titleSpan = a.querySelector('.press-link-title') as HTMLElement;
+      const titleSpan = li.querySelector('.press-link-title') as HTMLElement;
+      const metaSpan  = li.querySelector('.press-meta')       as HTMLElement;
       let i = 0;
       const iv = setInterval(() => {
         titleSpan.textContent = title.slice(0, i + 1);
         i++;
-        if (i >= title.length) clearInterval(iv);
+        if (i >= title.length) {
+          clearInterval(iv);
+          // Ahora anima el meta
+          let j = 0;
+          const iv2 = setInterval(() => {
+            metaSpan.textContent = meta.slice(0, j + 1);
+            j++;
+            if (j >= meta.length) {
+              clearInterval(iv2);
+              setTimeout(resolve, 120);
+            }
+          }, 22);
+        }
       }, 22);
-    }, delay);
+    });
   }
 
-  function openPress() {
+  async function openPress() {
     pressPanel.classList.remove('hidden');
     pressList.innerHTML = '';
 
-    let delay = 200;
-    PRESS.forEach(({ title, meta, url }) => {
+    // Subtítulo TRAYECTORIA
+    const label = document.createElement('li');
+    label.className = 'press-section-label';
+    label.textContent = 'Trayectoria';
+    pressList.appendChild(label);
+
+    // Crear items primero (todos vacíos)
+    const items = PRESS.map(({ title, meta, url }) => {
       const li = document.createElement('li');
       li.style.opacity = '0';
       li.style.transition = 'opacity 0.3s ease, color 0.3s ease, text-shadow 0.3s ease';
-      li.innerHTML = `<a href="${url}" target="_blank" rel="noopener" class="press-link"><span class="press-link-title"></span><span class="press-meta">${meta}</span></a>`;
+      li.innerHTML = `<a href="${url}" target="_blank" rel="noopener" class="press-link"><span class="press-link-title"></span><span class="press-meta"></span></a>`;
       pressList.appendChild(li);
-      typePressLine(li, title, meta, url, delay);
-      delay += title.length * 22 + 80;
+      return { li, title, meta };
     });
+
+    // Animar uno tras otro, esperando a que termine cada uno
+    for (const { li, title, meta } of items) {
+      await typePressLine(li, title, meta);
+    }
   }
 
   function closePress() {
