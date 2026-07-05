@@ -955,19 +955,22 @@ import Layout from '../layouts/Layout.astro';
     { text: '28/08/2026  —  Venres da Xira  (Vilalba, Lugo)',   cls: 'upcoming' },
   ];
 
-  function typeLine(li: HTMLLIElement, text: string, delay: number) {
-    setTimeout(() => {
+  function typeLine(li: HTMLLIElement, text: string): Promise<void> {
+    return new Promise(resolve => {
       li.style.opacity = '1';
       let i = 0;
       const iv = setInterval(() => {
         li.textContent = text.slice(0, i + 1);
         i++;
-        if (i >= text.length) clearInterval(iv);
+        if (i >= text.length) {
+          clearInterval(iv);
+          setTimeout(resolve, 80);
+        }
       }, 15);
-    }, delay);
+    });
   }
 
-  function openDates() {
+  async function openDates() {
     datesPanel.classList.remove('hidden');
     datesList.innerHTML = '';
     const ticker = datesPanel.querySelector('.dates-ticker') as HTMLElement | null;
@@ -980,16 +983,13 @@ import Layout from '../layouts/Layout.astro';
       datesList.appendChild(li);
       return { li, text: d.text };
     });
-    let delay = 200;
-    items.forEach(({ li, text }) => {
-      typeLine(li, text, delay);
-      delay += text.length * 15 + 80;
-    });
 
-    // Ticker aparece justo cuando termina la última fecha
-    setTimeout(() => {
-      if (ticker) ticker.classList.add('visible');
-    }, delay + 50);
+    await new Promise(r => setTimeout(r, 200));
+    for (const { li, text } of items) {
+      await typeLine(li, text);
+    }
+
+    if (ticker) ticker.classList.add('visible');
   }
 
   function closeDates() {
@@ -1028,18 +1028,17 @@ import Layout from '../layouts/Layout.astro';
         i++;
         if (i >= title.length) {
           clearInterval(iv);
-          // Ahora anima el meta
           let j = 0;
           const iv2 = setInterval(() => {
             metaSpan.textContent = meta.slice(0, j + 1);
             j++;
             if (j >= meta.length) {
               clearInterval(iv2);
-              setTimeout(resolve, 120);
+              setTimeout(resolve, 100);
             }
-          }, 22);
+          }, 15);
         }
-      }, 22);
+      }, 15);
     });
   }
 
@@ -1047,13 +1046,11 @@ import Layout from '../layouts/Layout.astro';
     pressPanel.classList.remove('hidden');
     pressList.innerHTML = '';
 
-    // Subtítulo TRAYECTORIA
     const label = document.createElement('li');
     label.className = 'press-section-label';
     label.textContent = 'Trayectoria';
     pressList.appendChild(label);
 
-    // Crear items primero (todos vacíos)
     const items = PRESS.map(({ title, meta, url }) => {
       const li = document.createElement('li');
       li.style.opacity = '0';
@@ -1063,7 +1060,6 @@ import Layout from '../layouts/Layout.astro';
       return { li, title, meta };
     });
 
-    // Animar uno tras otro, esperando a que termine cada uno
     for (const { li, title, meta } of items) {
       await typePressLine(li, title, meta);
     }
