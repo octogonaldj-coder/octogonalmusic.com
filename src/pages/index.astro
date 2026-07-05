@@ -963,7 +963,7 @@ import Layout from '../layouts/Layout.astro';
         li.textContent = text.slice(0, i + 1);
         i++;
         if (i >= text.length) clearInterval(iv);
-      }, 22);
+      }, 15);
     }, delay);
   }
 
@@ -983,7 +983,7 @@ import Layout from '../layouts/Layout.astro';
     let delay = 200;
     items.forEach(({ li, text }) => {
       typeLine(li, text, delay);
-      delay += text.length * 22 + 80;
+      delay += text.length * 15 + 80;
     });
 
     // Ticker aparece justo cuando termina la última fecha
