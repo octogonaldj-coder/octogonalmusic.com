@@ -140,7 +140,7 @@ import Layout from '../layouts/Layout.astro';
 
 
     <!-- ═══ GALERÍA ═══ -->
-  <section class="gallery-section" id="galeria">
+    <section class="gallery-section" id="galeria">
       <div class="gallery-inner">
         <p class="s-label">Galería</p>
         <div class="gallery-grid">
@@ -280,6 +280,8 @@ import Layout from '../layouts/Layout.astro';
     opacity: 0.85;
   }
 
+  .dates-list li.has-poster { cursor: pointer; }
+
   /* ── TICKER NOTICIARIO ── */
   .dates-ticker {
     position: fixed;
@@ -355,7 +357,6 @@ import Layout from '../layouts/Layout.astro';
   .press-panel > * { position: relative; z-index: 1; }
   .press-panel.hidden { display: none; }
 
-  /* Lista de prensa — misma base que dates-list */
   .press-list {
     list-style: none;
     text-align: left;
@@ -426,9 +427,7 @@ import Layout from '../layouts/Layout.astro';
     transition: color 0.3s ease;
   }
 
-  /* Hover igual que dates: los demás se atenúan, el activo brilla */
   .press-list:hover li { opacity: 0.15 !important; }
-
   .press-list li:hover { opacity: 1 !important; }
 
   .press-list li:hover .press-link-title {
@@ -590,7 +589,6 @@ import Layout from '../layouts/Layout.astro';
 
   .tooltip.visible { opacity: 1; }
 
-  /* ── PANEL DE FECHAS ── */
   .dates-panel {
     position: fixed;
     inset: 0;
@@ -600,7 +598,7 @@ import Layout from '../layouts/Layout.astro';
     align-items: center;
     justify-content: center;
     gap: 2.5rem;
-    background: url('/hero.JPG') center 20% / cover no-repeat;
+    background: url('/Fondo/Fondo.JPG') center 20% / cover no-repeat;
   }
 
   .dates-panel::before {
@@ -835,7 +833,6 @@ import Layout from '../layouts/Layout.astro';
 
 
 <script>
-  // ── TEXTOS DE BIOGRAFÍA ───────────────────
   const BIO: Record<string, string> = {
     es: `
       <p><strong>OCTOGONAL</strong> es la nueva identidad de un DJ gallego nacido en 1998 que, tras un cambio de aires y la necesidad de empezar de cero, inicia una nueva etapa centrada en su visión más personal del Techno. Su nombre se inspira en una referencia arquitectónica vinculada a sus raíces y resume una forma de entender la música basada en la precisión, la estructura y el equilibrio.</p>
@@ -873,7 +870,6 @@ import Layout from '../layouts/Layout.astro';
   });
 
 
-  // ── SCRAMBLE ──────────────────────────────
   const nameEl = document.getElementById('heroName') as HTMLElement;
   const pageBg = document.getElementById('pageBg')   as HTMLElement;
   const TARGET = 'OCTOGONAL';
@@ -898,7 +894,6 @@ import Layout from '../layouts/Layout.astro';
   setInterval(scramble, 15000);
 
 
-  // ── ZOOM + OSCURIDAD ──────────────────────
   const darkOverlay = document.getElementById('darkOverlay') as HTMLElement;
   const bioEl       = document.getElementById('bio')         as HTMLElement;
   const galeriaEl   = document.getElementById('galeria')     as HTMLElement;
@@ -925,7 +920,6 @@ import Layout from '../layouts/Layout.astro';
   }, { passive: true });
 
 
-  // ── COPIAR EMAIL ──────────────────────────
   const mailBtn     = document.getElementById('mailBtn')     as HTMLButtonElement;
   const copiedLabel = document.getElementById('copiedLabel') as HTMLElement;
 
@@ -937,21 +931,20 @@ import Layout from '../layouts/Layout.astro';
   });
 
 
-  // ── PANEL DE FECHAS ───────────────────────
   const calBtn        = document.getElementById('calBtn')        as HTMLButtonElement;
   const datesPanel    = document.getElementById('datesPanel')    as HTMLElement;
   const datesList     = document.getElementById('datesList')     as HTMLUListElement;
   const datesCloseBtn = document.getElementById('datesCloseBtn') as HTMLButtonElement;
 
   const DATES = [
-    { text: '19/12/2025  —  Maestros del Techno (PopLasserFM)', cls: '' },
-    { text: '14/02/2026  —  Delicatessen  (León)',              cls: '' },
-    { text: '18/04/2026  —  Sala Arena  (Valencia de Don Juan, León)', cls: '' },
-    { text: '25/04/2026  —  Private Party  (Rueda, Valladolid)', cls: '' },
-    { text: '25/04/2026  —  Pub Zaguán  (Mayorga, Valladolid)',  cls: '' },
+    { text: '19/12/2025  —  Maestros del Techno (PopLasserFM)', cls: '', poster: '/Carteles/poplasserfm.png' },
+    { text: '14/02/2026  —  Delicatessen  (León)',              cls: '', poster: '/Carteles/delicatessen.png' },
+    { text: '18/04/2026  —  Sala Arena  (Valencia de Don Juan, León)', cls: '', poster: '/Carteles/arena.png' },
+    { text: '25/04/2026  —  Private Party  (Rueda, Valladolid)', cls: '', poster: '/Carteles/rueda.png' },
+    { text: '25/04/2026  —  Pub Zaguán  (Mayorga, Valladolid)',  cls: '', poster: '/Carteles/zaguan.png' },
     { text: '18/07/2026  —  Private Party  (Mayorga, Valladolid)', cls: 'upcoming' },
-    { text: '07/08/2026  —  Karma Club  (La Bañeza, León)',     cls: 'upcoming' },
-    { text: '08/08/2026  —  Karma Club  (La Bañeza, León)',     cls: 'upcoming' },
+    { text: '07/08/2026  —  Karma Club  (La Bañeza, León)',     cls: 'upcoming', poster: '/Carteles/karma.png' },
+    { text: '08/08/2026  —  Karma Club  (La Bañeza, León)',     cls: 'upcoming', poster: '/Carteles/karma.png' },
     { text: '28/08/2026  —  Venres da Xira  (Vilalba, Lugo)',   cls: 'upcoming' },
   ];
 
@@ -979,6 +972,10 @@ import Layout from '../layouts/Layout.astro';
     const items = DATES.map(d => {
       const li = document.createElement('li');
       if (d.cls) li.className = d.cls;
+      if (d.poster) {
+        li.classList.add('has-poster');
+        li.dataset.poster = d.poster;
+      }
       li.style.opacity = '0';
       datesList.appendChild(li);
       return { li, text: d.text };
@@ -1002,8 +999,15 @@ import Layout from '../layouts/Layout.astro';
   calBtn.addEventListener('click', openDates);
   datesCloseBtn.addEventListener('click', closeDates);
 
+  // Click en fecha con cartel → abrir lightbox
+  datesList.addEventListener('click', (e) => {
+    const li = (e.target as HTMLElement).closest('li.has-poster') as HTMLLIElement | null;
+    if (!li) return;
+    const poster = li.dataset.poster;
+    if (poster) openLightbox('photo', poster, 'Cartel');
+  });
 
-  // ── PANEL DE PRENSA ───────────────────────
+
   const pressBtn      = document.getElementById('pressBtn')      as HTMLButtonElement;
   const pressPanel    = document.getElementById('pressPanel')    as HTMLElement;
   const pressList     = document.getElementById('pressList')     as HTMLUListElement;
@@ -1091,7 +1095,6 @@ import Layout from '../layouts/Layout.astro';
   }, { passive: true });
 
 
-  // ── ESCAPE ────────────────────────────────
   document.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
       closeDates();
@@ -1120,7 +1123,6 @@ import Layout from '../layouts/Layout.astro';
   }, { passive: true });
 
 
-  // ── LIGHTBOX ─────────────────────────────
   const lightbox      = document.getElementById('lightbox')      as HTMLElement;
   const lightboxImg   = document.getElementById('lightboxImg')   as HTMLImageElement;
   const lightboxVideo = document.getElementById('lightboxVideo') as HTMLVideoElement;
@@ -1177,7 +1179,6 @@ import Layout from '../layouts/Layout.astro';
   lightbox.addEventListener('click', closeLightbox);
 
 
-  // ── THUMBNAIL VÍDEOS EN MÓVIL ─────────────
   document.querySelectorAll<HTMLVideoElement>('.g-video-wrap video').forEach(video => {
     video.addEventListener('loadedmetadata', () => { video.currentTime = 0.1; });
     video.addEventListener('seeked', () => {
