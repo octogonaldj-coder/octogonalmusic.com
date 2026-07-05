@@ -103,6 +103,10 @@ import Layout from '../layouts/Layout.astro';
           <span class="dates-ticker-item">Próximamente — Nuevas fechas por anunciar</span>
           <span class="dates-ticker-item">Próximamente — Nuevas fechas por anunciar</span>
           <span class="dates-ticker-item">Próximamente — Nuevas fechas por anunciar</span>
+          <span class="dates-ticker-item" aria-hidden="true">Próximamente — Nuevas fechas por anunciar</span>
+          <span class="dates-ticker-item" aria-hidden="true">Próximamente — Nuevas fechas por anunciar</span>
+          <span class="dates-ticker-item" aria-hidden="true">Próximamente — Nuevas fechas por anunciar</span>
+          <span class="dates-ticker-item" aria-hidden="true">Próximamente — Nuevas fechas por anunciar</span>
         </div>
       </div>
     </div>
@@ -282,8 +286,8 @@ import Layout from '../layouts/Layout.astro';
     bottom: 0;
     left: 0;
     right: 0;
-    height: 2.6rem;
-    background: rgba(0,0,0,0.9);
+    height: 4rem;
+    background: transparent;
     border-top: 1px solid rgba(255,255,255,0.12);
     overflow: hidden;
     display: flex;
@@ -291,6 +295,7 @@ import Layout from '../layouts/Layout.astro';
     z-index: 205;
     transform: translateY(100%);
     transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
   }
 
   .dates-ticker.visible { transform: translateY(0); }
@@ -299,9 +304,9 @@ import Layout from '../layouts/Layout.astro';
     display: flex;
     gap: 4rem;
     white-space: nowrap;
-    animation: ticker-scroll 32s linear infinite;
+    animation: ticker-scroll 40s linear infinite;
     animation-play-state: paused;
-    padding-left: 100%;
+    padding-right: 4rem;
   }
 
   .dates-ticker.visible .dates-ticker-track {
@@ -321,7 +326,7 @@ import Layout from '../layouts/Layout.astro';
 
   @keyframes ticker-scroll {
     0%   { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
+    100% { transform: translateX(-50%); }
   }
 
   /* ── PANEL DE PRENSA ── */
@@ -608,7 +613,7 @@ import Layout from '../layouts/Layout.astro';
     z-index: 0;
   }
 
-  .dates-panel > * { position: relative; z-index: 1; }
+  .dates-panel > *:not(.dates-ticker) { position: relative; z-index: 1; }
   .dates-panel.hidden { display: none; }
 
   .dates-close-btn {
@@ -981,10 +986,10 @@ import Layout from '../layouts/Layout.astro';
       delay += text.length * 22 + 80;
     });
 
-    // Ticker aparece cuando terminan las fechas
+    // Ticker aparece justo cuando termina la última fecha
     setTimeout(() => {
       if (ticker) ticker.classList.add('visible');
-    }, delay + 400);
+    }, delay + 50);
   }
 
   function closeDates() {
