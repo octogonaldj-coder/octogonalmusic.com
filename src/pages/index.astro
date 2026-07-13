@@ -936,7 +936,7 @@ import Layout from '../layouts/Layout.astro';
   const datesList     = document.getElementById('datesList')     as HTMLUListElement;
   const datesCloseBtn = document.getElementById('datesCloseBtn') as HTMLButtonElement;
 
-  const DATES = [
+const DATES = [
     { text: '28/08/2026  —  Venres da Xira  (Vilalba, Lugo)',   cls: 'upcoming' },
     { text: '08/08/2026  —  Karma Club  (La Bañeza, León)',     cls: 'upcoming', poster: '/Carteles/karma.png' },
     { text: '07/08/2026  —  Karma Club  (La Bañeza, León)',     cls: 'upcoming', poster: '/Carteles/karma.png' },
@@ -948,23 +948,16 @@ import Layout from '../layouts/Layout.astro';
     { text: '19/12/2025  —  Maestros del Techno (PopLasserFM)', cls: '', poster: '/Carteles/poplasserfm.png' },
   ];
 
-  const isMobile = window.matchMedia('(hover: none)').matches;
-  const TYPE_SPEED = 15;
-  const CHARS_PER_TICK = isMobile ? 3 : 1;
-  const LINE_PAUSE = isMobile ? 30 : 80;
-
-  function typeLine(li: HTMLLIElement, text: string): Promise<void> {
+  function typeLine(li: HTMLLIElement, text: string, delay: number): Promise<void> {
     return new Promise(resolve => {
-      li.style.opacity = '1';
-      let i = 0;
-      const iv = setInterval(() => {
-        i += CHARS_PER_TICK;
-        li.textContent = text.slice(0, i);
-        if (i >= text.length) {
-          clearInterval(iv);
-          setTimeout(resolve, LINE_PAUSE);
-        }
-      }, TYPE_SPEED);
+      li.textContent = text;
+      li.style.clipPath = 'inset(0 100% 0 0)';
+      li.style.opacity = li.classList.contains('upcoming') ? '0.85' : '1';
+      setTimeout(() => {
+        li.style.transition = 'clip-path 1.4s cubic-bezier(0.65, 0, 0.35, 1)';
+        li.style.clipPath = 'inset(0 0 0 0)';
+        setTimeout(resolve, 700);
+      }, delay);
     });
   }
 
@@ -987,9 +980,8 @@ import Layout from '../layouts/Layout.astro';
     });
 
     await new Promise(r => setTimeout(r, 200));
-    for (const { li, text } of items) {
-      await typeLine(li, text);
-    }
+    const promises = items.map(({ li, text }, i) => typeLine(li, text, i * 180));
+    await Promise.all(promises);
 
     if (ticker) ticker.classList.add('visible');
   }
@@ -1003,6 +995,7 @@ import Layout from '../layouts/Layout.astro';
 
   calBtn.addEventListener('click', openDates);
   datesCloseBtn.addEventListener('click', closeDates);
+
 
   // Click en fecha con cartel → abrir lightbox
   datesList.addEventListener('click', (e) => {
