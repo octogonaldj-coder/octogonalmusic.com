@@ -949,8 +949,8 @@ import Layout from '../layouts/Layout.astro';
   ];
 
   const isMobile = window.matchMedia('(hover: none)').matches;
-  const TYPE_SPEED = isMobile ? 6 : 15;
-  const LINE_PAUSE = isMobile ? 30 : 80;
+  const TYPE_SPEED = isMobile ? 2 : 15;
+  const LINE_PAUSE = isMobile ? 10 : 80;
 
   function typeLine(li: HTMLLIElement, text: string): Promise<void> {
     return new Promise(resolve => {
