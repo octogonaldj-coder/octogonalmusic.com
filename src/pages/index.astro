@@ -1152,28 +1152,19 @@ import Layout from '../layouts/Layout.astro';
     { title: 'Ritmo innato en progresión', meta: 'El Progreso · Nov 2017', url: 'https://www.elprogreso.es/articulo/noticias/ritmo-innato-en-progresion/201711062114421214973.html' },
   ];
 
-  function typePressLine(li: HTMLLIElement, title: string, meta: string): Promise<void> {
+  function typePressLine(li: HTMLLIElement, title: string, meta: string, delay: number): Promise<void> {
     return new Promise(resolve => {
-      li.style.opacity = '1';
       const titleSpan = li.querySelector('.press-link-title') as HTMLElement;
       const metaSpan  = li.querySelector('.press-meta')       as HTMLElement;
-      let i = 0;
-      const iv = setInterval(() => {
-        titleSpan.textContent = title.slice(0, i + 1);
-        i++;
-        if (i >= title.length) {
-          clearInterval(iv);
-          let j = 0;
-          const iv2 = setInterval(() => {
-            metaSpan.textContent = meta.slice(0, j + 1);
-            j++;
-            if (j >= meta.length) {
-              clearInterval(iv2);
-              setTimeout(resolve, 100);
-            }
-          }, 15);
-        }
-      }, 15);
+      titleSpan.textContent = title;
+      metaSpan.textContent = meta;
+      li.style.opacity = '1';
+      li.style.clipPath = 'inset(0 100% 0 0)';
+      setTimeout(() => {
+        li.style.transition = 'clip-path 1.4s cubic-bezier(0.65, 0, 0.35, 1)';
+        li.style.clipPath = 'inset(0 0 0 0)';
+        setTimeout(resolve, 1400);
+      }, delay);
     });
   }
 
@@ -1189,15 +1180,14 @@ import Layout from '../layouts/Layout.astro';
     const items = PRESS.map(({ title, meta, url }) => {
       const li = document.createElement('li');
       li.style.opacity = '0';
-      li.style.transition = 'opacity 0.3s ease, color 0.3s ease, text-shadow 0.3s ease';
       li.innerHTML = `<a href="${url}" target="_blank" rel="noopener" class="press-link"><span class="press-link-title"></span><span class="press-meta"></span></a>`;
       pressList.appendChild(li);
       return { li, title, meta };
     });
 
-    for (const { li, title, meta } of items) {
-      await typePressLine(li, title, meta);
-    }
+    await new Promise(r => setTimeout(r, 200));
+    const promises = items.map(({ li, title, meta }, i) => typePressLine(li, title, meta, i * 180));
+    await Promise.all(promises);
   }
 
   function closePress() {
