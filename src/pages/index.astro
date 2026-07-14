@@ -52,13 +52,12 @@ import Layout from '../layouts/Layout.astro';
             </svg>
           </a>
 
-          <button class="icon-btn mail-btn" id="mailBtn" aria-label="Copiar email">
+          <a href="mailto:octogonaldj@gmail.com" class="icon-btn mail-btn" id="mailBtn" aria-label="Correo">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
               <rect x="2" y="4" width="20" height="16" rx="2"/>
               <path d="M2 7l10 7 10-7"/>
             </svg>
-            <span class="tooltip" id="copiedLabel">Copiado</span>
-          </button>
+          </a>
 
         </div>
 
@@ -1064,17 +1063,6 @@ import Layout from '../layouts/Layout.astro';
     pageBg.style.transform = `scale(${1 + zoomProgress * 0.25})`;
     darkOverlay.style.opacity = String(opacity);
   }, { passive: true });
-
-
-  const mailBtn     = document.getElementById('mailBtn')     as HTMLButtonElement;
-  const copiedLabel = document.getElementById('copiedLabel') as HTMLElement;
-
-  mailBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText('octogonaldj@gmail.com').then(() => {
-      copiedLabel.classList.add('visible');
-      setTimeout(() => copiedLabel.classList.remove('visible'), 2200);
-    });
-  });
 
 
   const calBtn        = document.getElementById('calBtn')        as HTMLButtonElement;
