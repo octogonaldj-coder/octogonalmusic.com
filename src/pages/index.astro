@@ -190,6 +190,27 @@ import Layout from '../layouts/Layout.astro';
       <video class="lightbox-video hidden" id="lightboxVideo" playsinline></video>
     </div>
 
+    <!-- ═══ WIDGET DE CONTACTO ═══ -->
+    <div class="contact-widget hidden" id="contactWidget">
+      <button class="contact-widget-toggle" id="contactWidgetToggle"><span>Contáctame</span></button>
+<div class="contact-widget-buttons" id="contactWidgetButtons">
+        <button class="contact-widget-close" id="contactWidgetClose" aria-label="Cerrar">×</button>
+        <a href="https://ig.me/m/octogonal__" target="_blank" rel="noopener" class="contact-popup-btn" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="30" height="30">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+<a href="mailto:octogonaldj@gmail.com" class="contact-popup-btn" aria-label="Correo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="30" height="30">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="M2 7l10 7 10-7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
   </main>
 </Layout>
 
@@ -198,7 +219,13 @@ import Layout from '../layouts/Layout.astro';
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { background: #0a0a0a; scroll-behavior: smooth; }
+  html {
+    background: #0a0a0a;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  html::-webkit-scrollbar { display: none; }
   body {
     background: #0a0a0a;
     color: #f0f0f0;
@@ -813,6 +840,124 @@ import Layout from '../layouts/Layout.astro';
   .lightbox-img.hidden,
   .lightbox-video.hidden { display: none; }
 
+  /* ── WIDGET DE CONTACTO ── */
+  .contact-widget {
+    position: fixed;
+    bottom: 2rem;
+    right: 0;
+    z-index: 400;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    background: rgba(15, 15, 15, 0.35);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+    overflow: hidden;
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  .contact-widget.visible {
+    animation: widgetBounceIn 1.3s ease-out forwards;
+  }
+  .contact-widget.hidden { display: none; }
+
+  @keyframes widgetBounceIn {
+    0%   { transform: translateX(100%); opacity: 0; }
+    40%  { transform: translateX(0%);   opacity: 1; }
+    55%  { transform: translateX(-20%); }
+    68%  { transform: translateX(0%); }
+    78%  { transform: translateX(-10%); }
+    87%  { transform: translateX(0%); }
+    93%  { transform: translateX(-4%); }
+    97%  { transform: translateX(0%); }
+    100% { transform: translateX(0);    opacity: 1; }
+  }
+
+  .contact-widget-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    flex-shrink: 0;
+    padding: 0.6rem 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: color 0.2s ease, padding 0.3s ease;
+  }
+  .contact-widget-toggle span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.72rem;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+  }
+  .contact-widget-toggle:hover { color: #ffffff; }
+  .contact-widget-toggle:has(+ .contact-widget-buttons.open) {
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+  }
+.contact-widget-buttons {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0;
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
+.contact-widget-buttons.open {
+    animation: widgetLinksOpen 0.6s ease-out forwards;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .contact-widget-buttons.closing {
+    animation: widgetLinksClose 0.6s ease-in forwards;
+  }
+@keyframes widgetLinksOpen {
+    0%   { width: 0;      opacity: 0; }
+    70%  { width: 112px;  opacity: 1; }
+    100% { width: 100px;  opacity: 1; }
+  }
+  @keyframes widgetLinksClose {
+    0%   { width: 100px;  opacity: 1; }
+    30%  { width: 112px;  opacity: 1; }
+    100% { width: 0;      opacity: 0; }
+  }
+
+  .contact-widget-close {
+    position: absolute;
+    top: 0.15rem;
+    right: 0.15rem;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s ease;
+  }
+  .contact-widget-close:hover { color: #ffffff; }
+
+  .contact-popup-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .contact-popup-btn svg { display: block; }
+  .contact-popup-btn:hover { color: #ffffff; }
+
   @media (max-width: 640px) {
     .name { font-size: clamp(2.5rem, 13vw, 4.5rem); letter-spacing: 0.02em; }
     .tagline { font-size: 0.58rem; letter-spacing: 0.2rem; }
@@ -828,6 +973,7 @@ import Layout from '../layouts/Layout.astro';
       letter-spacing: 0.04em;
       white-space: nowrap;
     }
+    .contact-widget { bottom: 1rem; right: 1rem; }
   }
 </style>
 
@@ -936,7 +1082,7 @@ import Layout from '../layouts/Layout.astro';
   const datesList     = document.getElementById('datesList')     as HTMLUListElement;
   const datesCloseBtn = document.getElementById('datesCloseBtn') as HTMLButtonElement;
 
-const DATES = [
+  const DATES = [
     { text: '28/08/2026  —  Venres da Xira  (Vilalba, Lugo)',   cls: 'upcoming' },
     { text: '08/08/2026  —  Karma Club  (La Bañeza, León)',     cls: 'upcoming', poster: '/Carteles/karma.png' },
     { text: '07/08/2026  —  Karma Club  (La Bañeza, León)',     cls: 'upcoming', poster: '/Carteles/karma.png' },
@@ -956,7 +1102,7 @@ const DATES = [
       setTimeout(() => {
         li.style.transition = 'clip-path 1.4s cubic-bezier(0.65, 0, 0.35, 1)';
         li.style.clipPath = 'inset(0 0 0 0)';
-        setTimeout(resolve, 700);
+        setTimeout(resolve, 1400);
       }, delay);
     });
   }
@@ -995,8 +1141,7 @@ const DATES = [
 
   calBtn.addEventListener('click', openDates);
   datesCloseBtn.addEventListener('click', closeDates);
-
-
+  
   // Click en fecha con cartel → abrir lightbox
   datesList.addEventListener('click', (e) => {
     const li = (e.target as HTMLElement).closest('li.has-poster') as HTMLLIElement | null;
@@ -1187,5 +1332,47 @@ const DATES = [
       video.poster = canvas.toDataURL('image/jpeg');
     }, { once: true });
     video.load();
+  });
+
+
+  // ── WIDGET DE CONTACTO ────────────────────
+  const contactWidget = document.getElementById('contactWidget') as HTMLElement;
+  const contactWidgetToggle = document.getElementById('contactWidgetToggle') as HTMLButtonElement;
+  const contactWidgetButtons = document.getElementById('contactWidgetButtons') as HTMLElement;
+  const contactWidgetClose = document.getElementById('contactWidgetClose') as HTMLButtonElement;
+  const showContactWidget = () => {
+    contactWidget.classList.remove('hidden');
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      contactWidget.classList.add('visible');
+    }));
+    window.removeEventListener('scroll', showContactWidget);
+  };
+  window.addEventListener('scroll', showContactWidget, { passive: true, once: true });
+  const closeContactDropdown = () => {
+    if (!contactWidgetButtons.classList.contains('open')) return;
+    contactWidgetButtons.classList.remove('open');
+    void contactWidgetButtons.offsetWidth;
+    contactWidgetButtons.classList.add('closing');
+    contactWidgetButtons.addEventListener('animationend', () => {
+      contactWidgetButtons.classList.remove('closing');
+    }, { once: true });
+  };
+  contactWidgetToggle.addEventListener('click', () => {
+    if (contactWidgetButtons.classList.contains('open')) {
+      closeContactDropdown();
+    } else {
+      contactWidgetButtons.classList.remove('closing');
+      void contactWidgetButtons.offsetWidth;
+      contactWidgetButtons.classList.add('open');
+    }
+  });
+  contactWidgetClose.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeContactDropdown();
+  });
+  document.addEventListener('click', (e) => {
+    if (!contactWidget.contains(e.target as Node)) {
+      closeContactDropdown();
+    }
   });
 </script>
