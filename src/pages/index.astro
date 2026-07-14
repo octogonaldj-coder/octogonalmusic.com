@@ -216,7 +216,7 @@ import Layout from '../layouts/Layout.astro';
 
 
 <style is:global>
-  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;500;600;700;800&display=swap');
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html {
@@ -229,7 +229,7 @@ import Layout from '../layouts/Layout.astro';
   body {
     background: #0a0a0a;
     color: #f0f0f0;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
@@ -248,7 +248,7 @@ import Layout from '../layouts/Layout.astro';
     list-style: none;
     text-align: left;
     width: fit-content;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: clamp(0.78rem, 1.5vw, 0.95rem);
     font-weight: 300;
     letter-spacing: 0.12em;
@@ -343,7 +343,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .dates-ticker-item {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Inter', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: clamp(0.72rem, 1.3vw, 0.85rem);
     font-weight: 300;
     letter-spacing: 0.15em;
@@ -388,7 +388,7 @@ import Layout from '../layouts/Layout.astro';
     list-style: none;
     text-align: left;
     width: fit-content;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: clamp(0.78rem, 1.5vw, 0.95rem);
     font-weight: 300;
     letter-spacing: 0.12em;
@@ -519,9 +519,9 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .name {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: clamp(3rem, 10vw, 10rem);
-    font-weight: 800;
+    font-weight: 700;
     letter-spacing: 0.04em;
     line-height: 1;
     color: #ffffff;
@@ -707,7 +707,7 @@ import Layout from '../layouts/Layout.astro';
     background: none;
     border: none;
     cursor: pointer;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 0.68rem;
     font-weight: 500;
     letter-spacing: 0.2em;
@@ -1141,7 +1141,7 @@ import Layout from '../layouts/Layout.astro';
 
   calBtn.addEventListener('click', openDates);
   datesCloseBtn.addEventListener('click', closeDates);
-  
+
   // Click en fecha con cartel → abrir lightbox
   datesList.addEventListener('click', (e) => {
     const li = (e.target as HTMLElement).closest('li.has-poster') as HTMLLIElement | null;
