@@ -90,6 +90,9 @@ import Layout from '../layouts/Layout.astro';
     <div class="dates-panel hidden" id="datesPanel">
       <p class="panel-title">Fechas</p>
       <ul class="dates-list" id="datesList"></ul>
+      <div class="date-poster-preview" id="datePosterPreview" aria-hidden="true">
+        <img id="datePosterPreviewImg" src="" alt="" />
+      </div>
       <button class="dates-close-btn" id="datesCloseBtn" aria-label="Cerrar fechas">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="21" height="21">
           <path d="M3 12L12 4l9 8"/>
@@ -637,7 +640,42 @@ import Layout from '../layouts/Layout.astro';
     z-index: 0;
   }
 
-  .dates-panel > *:not(.dates-ticker) { position: relative; z-index: 1; }
+  .dates-panel > *:not(.dates-ticker):not(.date-poster-preview) { position: relative; z-index: 1; }
+
+  .date-poster-preview {
+    position: fixed;
+    top: 50%;
+    right: 4rem;
+    z-index: 5;
+    width: 200px;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-50%) translateX(10px) scale(0.94);
+    transition: opacity 0.22s ease, transform 0.22s ease;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: #111;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.1);
+  }
+
+  .date-poster-preview.visible {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0) scale(1);
+  }
+
+  @media (max-width: 900px) {
+    .date-poster-preview { right: 1.2rem; width: 150px; }
+  }
+
+  .date-poster-preview img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  @media (hover: none) {
+    .date-poster-preview { display: none !important; }
+  }
   .dates-panel.hidden { display: none; }
 
   .dates-close-btn {
@@ -1069,11 +1107,13 @@ import Layout from '../layouts/Layout.astro';
   const datesPanel    = document.getElementById('datesPanel')    as HTMLElement;
   const datesList     = document.getElementById('datesList')     as HTMLUListElement;
   const datesCloseBtn = document.getElementById('datesCloseBtn') as HTMLButtonElement;
+  const datePosterPreview    = document.getElementById('datePosterPreview')    as HTMLElement;
+  const datePosterPreviewImg = document.getElementById('datePosterPreviewImg') as HTMLImageElement;
 
   const DATES = [
     { text: '28/08/2026  —  Venres da Xira  (Vilalba, Lugo)',   cls: 'upcoming' },
-    { text: '08/08/2026  —  Karma Club  (La Bañeza, León)',     cls: 'upcoming', poster: '/Carteles/karma.png' },
-    { text: '07/08/2026  —  Karma Club  (La Bañeza, León)',     cls: 'upcoming', poster: '/Carteles/karma.png' },
+    { text: '08/08/2026  —  Karma Club  (La Bañeza, León)',     cls: '', poster: '/Carteles/karma.png' },
+    { text: '07/08/2026  —  Karma Club  (La Bañeza, León)',     cls: '', poster: '/Carteles/karma.png' },
     { text: '18/07/2026  —  Private Party  (Mayorga, Valladolid)', cls: '', poster: '/Carteles/mayorga.png' },
     { text: '25/04/2026  —  Pub Zaguán  (Mayorga, Valladolid)',  cls: '', poster: '/Carteles/zaguan.png' },
     { text: '25/04/2026  —  Private Party  (Rueda, Valladolid)', cls: '', poster: '/Carteles/rueda.png' },
@@ -1120,11 +1160,19 @@ import Layout from '../layouts/Layout.astro';
     if (ticker) ticker.classList.add('visible');
   }
 
+  let hoveredPosterLi: HTMLLIElement | null = null;
+
+  function hidePosterPreview() {
+    hoveredPosterLi = null;
+    datePosterPreview.classList.remove('visible');
+  }
+
   function closeDates() {
     datesPanel.classList.add('hidden');
     datesList.innerHTML = '';
     const ticker = datesPanel.querySelector('.dates-ticker') as HTMLElement | null;
     if (ticker) ticker.classList.remove('visible');
+    hidePosterPreview();
   }
 
   calBtn.addEventListener('click', openDates);
@@ -1135,8 +1183,27 @@ import Layout from '../layouts/Layout.astro';
     const li = (e.target as HTMLElement).closest('li.has-poster') as HTMLLIElement | null;
     if (!li) return;
     const poster = li.dataset.poster;
-    if (poster) openLightbox('photo', poster, 'Cartel');
+    if (poster) {
+      hidePosterPreview();
+      openLightbox('photo', poster, 'Cartel');
+    }
   });
+
+  // Hover en fecha con cartel → mini vista previa del cartel (posición fija)
+  datesList.addEventListener('mouseover', (e) => {
+    if (!window.matchMedia('(hover: hover)').matches) return;
+    const li = (e.target as HTMLElement).closest('li.has-poster') as HTMLLIElement | null;
+    if (li === hoveredPosterLi) return;
+    hoveredPosterLi = li;
+    if (li && li.dataset.poster) {
+      datePosterPreviewImg.src = li.dataset.poster;
+      datePosterPreview.classList.add('visible');
+    } else {
+      datePosterPreview.classList.remove('visible');
+    }
+  });
+
+  datesList.addEventListener('mouseleave', hidePosterPreview);
 
 
   const pressBtn      = document.getElementById('pressBtn')      as HTMLButtonElement;
