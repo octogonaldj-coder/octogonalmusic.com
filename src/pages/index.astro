@@ -101,14 +101,14 @@ import Layout from '../layouts/Layout.astro';
       </button>
       <div class="dates-ticker">
         <div class="dates-ticker-track">
-          <span class="dates-ticker-item">Nuevas fechas por anunciar</span>
-          <span class="dates-ticker-item">Nuevas fechas por anunciar</span>
-          <span class="dates-ticker-item">Nuevas fechas por anunciar</span>
-          <span class="dates-ticker-item">Nuevas fechas por anunciar</span>
-          <span class="dates-ticker-item" aria-hidden="true">Nuevas fechas por anunciar</span>
-          <span class="dates-ticker-item" aria-hidden="true">Nuevas fechas por anunciar</span>
-          <span class="dates-ticker-item" aria-hidden="true">Nuevas fechas por anunciar</span>
-          <span class="dates-ticker-item" aria-hidden="true">Nuevas fechas por anunciar</span>
+          <span class="dates-ticker-item">NUEVAS FECHAS POR ANUNCIAR</span>
+          <span class="dates-ticker-item">NUEVAS FECHAS POR ANUNCIAR</span>
+          <span class="dates-ticker-item">NUEVAS FECHAS POR ANUNCIAR</span>
+          <span class="dates-ticker-item">NUEVAS FECHAS POR ANUNCIAR</span>
+          <span class="dates-ticker-item" aria-hidden="true">NUEVAS FECHAS POR ANUNCIAR</span>
+          <span class="dates-ticker-item" aria-hidden="true">NUEVAS FECHAS POR ANUNCIAR</span>
+          <span class="dates-ticker-item" aria-hidden="true">NUEVAS FECHAS POR ANUNCIAR</span>
+          <span class="dates-ticker-item" aria-hidden="true">NUEVAS FECHAS POR ANUNCIAR</span>
         </div>
       </div>
     </div>
@@ -261,11 +261,28 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .dates-list li {
+    display: flex;
+    align-items: baseline;
     opacity: 0;
     min-height: 1.6em;
     color: #5c5c5c;
     cursor: default;
     transition: opacity 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+  }
+
+  .dates-list li .d-date {
+    flex: 0 0 auto;
+    width: 8em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .dates-list li .d-sep {
+    flex: 0 0 auto;
+    margin: 0 0.9em 0 0.6em;
+  }
+
+  .dates-list li .d-rest {
+    flex: 1 1 auto;
   }
 
   .dates-list:hover li { opacity: 0.15 !important; }
@@ -587,14 +604,14 @@ import Layout from '../layouts/Layout.astro';
 
   .cal-btn, .press-btn {
     color: rgba(255,255,255,0.55);
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='29,2 71,2 98,29 98,71 71,98 29,98 2,71 2,29' fill='none' stroke='white' stroke-width='1.5' stroke-opacity='0.35'/%3E%3C/svg%3E") center/contain no-repeat;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='29,2 71,2 98,29 98,71 71,98 29,98 2,71 2,29' fill='none' stroke='white' stroke-width='4' stroke-opacity='0.35'/%3E%3C/svg%3E") center/contain no-repeat;
   }
 
   @media (hover: hover) {
     .cal-btn:hover, .press-btn:hover {
       transform: scale(1.1);
       color: #ffffff;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='29,2 71,2 98,29 98,71 71,98 29,98 2,71 2,29' fill='white' fill-opacity='0.08' stroke='white' stroke-width='1.5' stroke-opacity='0.85'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='29,2 71,2 98,29 98,71 71,98 29,98 2,71 2,29' fill='white' fill-opacity='0.08' stroke='white' stroke-width='4' stroke-opacity='0.85'/%3E%3C/svg%3E");
     }
   }
 
@@ -1111,20 +1128,33 @@ import Layout from '../layouts/Layout.astro';
   const datePosterPreviewImg = document.getElementById('datePosterPreviewImg') as HTMLImageElement;
 
   const DATES = [
-    { text: '28/08/2026  —  Venres da Xira  (Vilalba, Lugo)',   cls: '', poster: '/Carteles/xira26.png' },
-    { text: '08/08/2026  —  Karma Club  (La Bañeza, León)',     cls: '', poster: '/Carteles/karma.png' },
-    { text: '07/08/2026  —  Karma Club  (La Bañeza, León)',     cls: '', poster: '/Carteles/karma.png' },
-    { text: '18/07/2026  —  Private Party  (Mayorga, Valladolid)', cls: '', poster: '/Carteles/mayorga.png' },
-    { text: '25/04/2026  —  Pub Zaguán  (Mayorga, Valladolid)',  cls: '', poster: '/Carteles/zaguan.png' },
-    { text: '25/04/2026  —  Private Party  (Rueda, Valladolid)', cls: '', poster: '/Carteles/rueda.png' },
-    { text: '18/04/2026  —  Sala Arena  (Valencia de Don Juan, León)', cls: '', poster: '/Carteles/arena.png' },
-    { text: '14/02/2026  —  Delicatessen  (León)',              cls: '', poster: '/Carteles/delicatessen.png' },
-    { text: '19/12/2025  —  Maestros del Techno (PopLasserFM)', cls: '', poster: '/Carteles/poplasserfm.png' },
+    { date: 'TBA',        text: 'Cocoua Club  (A Coruña)',   cls: 'upcoming', poster: '' },
+    { date: '11/01/2027', text: 'A-Z Podcast  (SoundCloud)',   cls: 'upcoming', poster: '' },
+    { date: '10/10/2026', text: 'Apya  (Valladolid)',   cls: 'upcoming', poster: '' },
+    { date: '28/08/2026', text: 'Venres da Xira  (Vilalba, Lugo)',   cls: '', poster: '/Carteles/xira26.png' },
+    { date: '08/08/2026', text: 'Karma Club  (La Bañeza, León)',     cls: '', poster: '/Carteles/karma.png' },
+    { date: '07/08/2026', text: 'Karma Club  (La Bañeza, León)',     cls: '', poster: '/Carteles/karma.png' },
+    { date: '18/07/2026', text: 'Private Party  (Mayorga, Valladolid)', cls: '', poster: '/Carteles/mayorga.png' },
+    { date: '25/04/2026', text: 'Pub Zaguán  (Mayorga, Valladolid)',  cls: '', poster: '/Carteles/zaguan.png' },
+    { date: '25/04/2026', text: 'Private Party  (Rueda, Valladolid)', cls: '', poster: '/Carteles/rueda.png' },
+    { date: '18/04/2026', text: 'Sala Arena  (Valencia de Don Juan, León)', cls: '', poster: '/Carteles/arena.png' },
+    { date: '14/02/2026', text: 'Delicatessen  (León)',              cls: '', poster: '/Carteles/delicatessen.png' },
+    { date: '19/12/2025', text: 'Maestros del Techno (PopLasserFM)', cls: '', poster: '/Carteles/poplasserfm.png' },
   ];
 
-  function typeLine(li: HTMLLIElement, text: string, delay: number): Promise<void> {
+  function typeLine(li: HTMLLIElement, date: string, text: string, delay: number): Promise<void> {
     return new Promise(resolve => {
-      li.textContent = text;
+      li.innerHTML = '';
+      const dateSpan = document.createElement('span');
+      dateSpan.className = 'd-date';
+      dateSpan.textContent = date;
+      const sepSpan = document.createElement('span');
+      sepSpan.className = 'd-sep';
+      sepSpan.textContent = '—';
+      const restSpan = document.createElement('span');
+      restSpan.className = 'd-rest';
+      restSpan.textContent = text;
+      li.append(dateSpan, sepSpan, restSpan);
       li.style.clipPath = 'inset(0 100% 0 0)';
       li.style.opacity = li.classList.contains('upcoming') ? '0.85' : '1';
       setTimeout(() => {
@@ -1150,11 +1180,11 @@ import Layout from '../layouts/Layout.astro';
       }
       li.style.opacity = '0';
       datesList.appendChild(li);
-      return { li, text: d.text };
+      return { li, date: d.date, text: d.text };
     });
 
     await new Promise(r => setTimeout(r, 200));
-    const promises = items.map(({ li, text }, i) => typeLine(li, text, i * 180));
+    const promises = items.map(({ li, date, text }, i) => typeLine(li, date, text, i * 180));
     await Promise.all(promises);
 
     if (ticker) ticker.classList.add('visible');
