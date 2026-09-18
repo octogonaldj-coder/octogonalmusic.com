@@ -1130,19 +1130,19 @@ import Layout from '../layouts/Layout.astro';
   const datePosterPreviewImg = document.getElementById('datePosterPreviewImg') as HTMLImageElement;
 
   const DATES = [
-    { date: 'TBA',        text: 'Cocoua Club  (A Coruña)',   cls: 'upcoming', poster: '' },
-    { date: '11/01/2027', text: 'A-Z Podcast  (SoundCloud)',   cls: 'upcoming', poster: '' },
-    { date: '16/10/2026', text: 'Delicatessen  (León)',              cls: 'upcoming', poster: '' },
-    { date: '10/10/2026', text: 'Apya  (Valladolid)',   cls: 'upcoming', poster: '' },
-    { date: '28/08/2026', text: 'Venres da Xira  (Vilalba, Lugo)',   cls: '', poster: '/Carteles/xira26.png' },
-    { date: '08/08/2026', text: 'Karma Club  (La Bañeza, León)',     cls: '', poster: '/Carteles/karma.png' },
-    { date: '07/08/2026', text: 'Karma Club  (La Bañeza, León)',     cls: '', poster: '/Carteles/karma.png' },
-    { date: '18/07/2026', text: 'Private Party  (Mayorga, Valladolid)', cls: '', poster: '/Carteles/mayorga.png' },
-    { date: '25/04/2026', text: 'Pub Zaguán  (Mayorga, Valladolid)',  cls: '', poster: '/Carteles/zaguan.png' },
-    { date: '25/04/2026', text: 'Private Party  (Rueda, Valladolid)', cls: '', poster: '/Carteles/rueda.png' },
+    { date: 'TBA',        text: 'Cocoua Club  (A Coruña)',                  cls: 'upcoming', poster: '' },
+    { date: '11/01/2027', text: 'A-Z Podcast  (SoundCloud)',                cls: 'upcoming', poster: '' },
+    { date: '16/10/2026', text: 'Delicatessen  (León)',                     cls: 'upcoming', poster: '' },
+    { date: '10/10/2026', text: 'Apya  (Valladolid)',                       cls: 'upcoming', poster: '' },
+    { date: '28/08/2026', text: 'Venres da Xira  (Vilalba, Lugo)',          cls: '', poster: '/Carteles/xira26.png' },
+    { date: '08/08/2026', text: 'Karma Club  (La Bañeza, León)',            cls: '', poster: '/Carteles/karma.png' },
+    { date: '07/08/2026', text: 'Karma Club  (La Bañeza, León)',            cls: '', poster: '/Carteles/karma.png' },
+    { date: '18/07/2026', text: 'Private Party  (Mayorga, Valladolid)',     cls: '', poster: '/Carteles/mayorga.png' },
+    { date: '25/04/2026', text: 'Pub Zaguán  (Mayorga, Valladolid)',        cls: '', poster: '/Carteles/zaguan.png' },
+    { date: '25/04/2026', text: 'Private Party  (Rueda, Valladolid)',       cls: '', poster: '/Carteles/rueda.png' },
     { date: '18/04/2026', text: 'Sala Arena  (Valencia de Don Juan, León)', cls: '', poster: '/Carteles/arena.png' },
-    { date: '14/02/2026', text: 'Delicatessen  (León)',              cls: '', poster: '/Carteles/delicatessen.png' },
-    { date: '19/12/2025', text: 'Maestros del Techno (PopLasserFM)', cls: '', poster: '/Carteles/poplasserfm.png' },
+    { date: '14/02/2026', text: 'Delicatessen  (León)',                     cls: '', poster: '/Carteles/delicatessen.png' },
+    { date: '19/12/2025', text: 'Maestros del Techno (PopLasserFM)',        cls: '', poster: '/Carteles/poplasserfm.png' },
   ];
 
   function typeLine(li: HTMLLIElement, date: string, text: string, delay: number): Promise<void> {
