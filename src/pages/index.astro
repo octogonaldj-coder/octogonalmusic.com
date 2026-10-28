@@ -389,7 +389,7 @@ import Layout from '../layouts/Layout.astro';
     align-items: center;
     justify-content: center;
     gap: 2.5rem;
-    background: url('/Fondo/Fondo.JPG') center 20% / cover no-repeat;
+    background: url('/Fondo/Fondo1.JPG') center 20% / cover no-repeat;
   }
 
   .press-panel::before {
@@ -508,7 +508,7 @@ import Layout from '../layouts/Layout.astro';
     position: fixed;
     inset: 0;
     z-index: 0;
-    background: url('/Fondo/Fondo.JPG') center 20% / cover no-repeat;
+    background: url('/Fondo/Fondo1.JPG') center 20% / cover no-repeat;
     filter: brightness(0.42);
     transform-origin: center center;
     will-change: transform;
@@ -650,7 +650,7 @@ import Layout from '../layouts/Layout.astro';
     gap: 2.5rem;
     padding-bottom: 4rem;
     box-sizing: border-box;
-    background: url('/Fondo/Fondo.JPG') center 20% / cover no-repeat;
+    background: url('/Fondo/Fondo1.JPG') center 20% / cover no-repeat;
   }
 
   .dates-panel::before {
@@ -1124,7 +1124,6 @@ import Layout from '../layouts/Layout.astro';
     pageBg.style.transform = `scale(${1 + zoomProgress * 0.25})`;
     darkOverlay.style.opacity = String(opacity);
   }, { passive: true });
-
 
   const calBtn        = document.getElementById('calBtn')        as HTMLButtonElement;
   const datesPanel    = document.getElementById('datesPanel')    as HTMLElement;
